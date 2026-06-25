@@ -49,7 +49,7 @@ class DemoService:
         Executes a pre-defined scenario, running each step of the pipeline.
         Saves resulting context in the conversation history vector/DB.
         """
-        t_start = time.time()
+        t_start = time.perf_counter()
         logger.info(f"Executing demo scenario '{scenario_id}'...")
         scenario = self.scenario_store.get_scenario_by_id(scenario_id)
         if not scenario:
@@ -62,18 +62,18 @@ class DemoService:
         stt_latency = 1150
         
         # Step 1: ASR correction and English translation
-        t_corr_start = time.time()
+        t_corr_start = time.perf_counter()
         asr_result = self.correction_service.correct(raw_transcript)
-        correction_latency = int((time.time() - t_corr_start) * 1000)
+        correction_latency = int((time.perf_counter() - t_corr_start) * 1000)
         
         # Step 2: Intent extraction
-        t_intent_start = time.time()
+        t_intent_start = time.perf_counter()
         intent_result = self.intent_service.extract(asr_result["corrected_bangla"])
-        intent_latency = int((time.time() - t_intent_start) * 1000)
+        intent_latency = int((time.perf_counter() - t_intent_start) * 1000)
         
         # Step 3: Localized weather lookup (using custom coordinates or scenario coordinates)
         # Coordinate selection: Prioritize district coordinates if user selected a custom district
-        t_weather_start = time.time()
+        t_weather_start = time.perf_counter()
         lat = scenario.get("lat", 23.8103)
         lon = scenario.get("lon", 90.4125)
         
@@ -86,10 +86,10 @@ class DemoService:
             weather = self.weather_service.get_weather_by_coords(lat, lon)
             
         weather_dict = weather.to_dict()
-        weather_latency = int((time.time() - t_weather_start) * 1000)
+        weather_latency = int((time.perf_counter() - t_weather_start) * 1000)
 
         # Step 4: RAG search using crop metadata + symptoms
-        t_rag_start = time.time()
+        t_rag_start = time.perf_counter()
         rag_result = self.rag_service.query_knowledge(
             query_text=asr_result["corrected_bangla"],
             crop=intent_result.get("crop"),
@@ -97,17 +97,17 @@ class DemoService:
             english_translation=asr_result.get("english_translation")
         )
         rag_docs = rag_result.get("retrieved_chunks", [])
-        rag_latency = int((time.time() - t_rag_start) * 1000)
+        rag_latency = int((time.perf_counter() - t_rag_start) * 1000)
 
         # Step 5: AI Advisor Recommendation
-        t_adv_start = time.time()
+        t_adv_start = time.perf_counter()
         advisor_result = self.advisor_service.generate_advice(
             farmer_query=asr_result["corrected_bangla"],
             intent_data=intent_result,
             weather_data=weather_dict,
             rag_data=rag_result
         )
-        advisor_latency = int((time.time() - t_adv_start) * 1000)
+        advisor_latency = int((time.perf_counter() - t_adv_start) * 1000)
 
         # Step 6: Confidence Calculations
         confidence_result = self.confidence_service.calculate_confidence(
@@ -133,19 +133,30 @@ class DemoService:
         )
 
         # Step 8: TTS Audio Synthesis
-        t_tts_start = time.time()
+        t_tts_start = time.perf_counter()
         recommendation_audio_url = self.tts_service.synthesize(
             advisor_result.get("bangla_recommendation", ""), 
             voice_gender="female"
         )
-        tts_latency = int((time.time() - t_tts_start) * 1000)
+        tts_latency = int((time.perf_counter() - t_tts_start) * 1000)
         
-        total_latency = int((time.time() - t_start) * 1000) + stt_latency
+        total_latency = int((time.perf_counter() - t_start) * 1000) + stt_latency
 
         # Estimate tokens
         rag_context_len = sum(len(c.get("text", "")) for c in rag_docs)
         input_token_count = (len(asr_result["corrected_bangla"]) + rag_context_len) // 4
         output_token_count = len(advisor_result.get("bangla_recommendation", "")) // 4
+
+        from app.config.settings import Config
+        stage_status = {
+            "stt": "executed",
+            "correction": "mock_fallback" if Config.USE_MOCK_LLM else "executed",
+            "weather": "executed",
+            "intent": "mock_fallback" if Config.USE_MOCK_LLM else "executed",
+            "rag": "executed",
+            "advisor": "mock_fallback" if Config.USE_MOCK_LLM else "executed",
+            "tts": "mock_fallback" if Config.USE_MOCK_TTS else "executed"
+        }
 
         metrics = {
             "stt_latency_ms": stt_latency,
@@ -158,7 +169,8 @@ class DemoService:
             "total_latency_ms": total_latency,
             "input_token_count": input_token_count,
             "output_token_count": output_token_count,
-            "retrieved_doc_count": len(rag_docs)
+            "retrieved_doc_count": len(rag_docs),
+            "stage_status": stage_status
         }
 
         # Save result into conversation history database

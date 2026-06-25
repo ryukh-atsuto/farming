@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.log
+data/chroma_db/
+data/generated_audio/
+data/uploads/
+data/history_detailed.json
+data/conversation_history.json

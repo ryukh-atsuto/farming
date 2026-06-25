@@ -45,7 +45,7 @@ def diagnose_crop():
     weather parameters retrieval, RAG documents query, AI advisor advice, confidence assessment,
     human review triggers, and TTS audio synthesis.
     """
-    t_start = time.time()
+    t_start = time.perf_counter()
     data = request.get_json() or {}
     audio_path = data.get("audio_path")
     text_query = data.get("text_query")
@@ -63,7 +63,7 @@ def diagnose_crop():
         stt_latency = 0
         
         if audio_path:
-            t_stt_start = time.time()
+            t_stt_start = time.perf_counter()
             logger.info(f"Pipeline: Preprocessing audio: {audio_path}")
             audio_job = audio_preprocess_service.preprocess(audio_path)
             if audio_job.status == "failed":
@@ -77,7 +77,7 @@ def diagnose_crop():
             
             logger.info("Pipeline: Transcribing audio...")
             original_transcript = stt_service.transcribe(audio_job.filepath)
-            stt_latency = int((time.time() - t_stt_start) * 1000)
+            stt_latency = int((time.perf_counter() - t_stt_start) * 1000)
             if not original_transcript:
                 # If local transcription returns empty, fallback/trigger match
                 original_transcript = text_query or ""
@@ -88,14 +88,14 @@ def diagnose_crop():
             original_transcript = text_query
 
         # Step 2: ASR dialect/error correction
-        t_corr_start = time.time()
+        t_corr_start = time.perf_counter()
         asr_result = correction_service.correct(original_transcript)
         corrected_bangla = asr_result.get("corrected_bangla", original_transcript)
         english_translation = asr_result.get("english_translation", "")
-        correction_latency = int((time.time() - t_corr_start) * 1000)
+        correction_latency = int((time.perf_counter() - t_corr_start) * 1000)
 
         # Step 3: Localized weather parameters
-        t_weather_start = time.time()
+        t_weather_start = time.perf_counter()
         resolved_district = "Dhaka"
         weather_model = None
 
@@ -112,19 +112,19 @@ def diagnose_crop():
 
         weather_context = weather_model.to_dict()
         weather_context["resolved_district"] = resolved_district
-        weather_latency = int((time.time() - t_weather_start) * 1000)
+        weather_latency = int((time.perf_counter() - t_weather_start) * 1000)
 
         # Step 4: Intent and parameters extraction
-        t_intent_start = time.time()
+        t_intent_start = time.perf_counter()
         intent_result = intent_service.extract(corrected_bangla)
         crop = intent_result.get("crop", "unknown")
         symptoms = intent_result.get("symptoms", [])
         severity = intent_result.get("severity", "unknown")
         urgency = intent_result.get("urgency", "unknown")
-        intent_latency = int((time.time() - t_intent_start) * 1000)
+        intent_latency = int((time.perf_counter() - t_intent_start) * 1000)
 
         # Step 5: Document Knowledge RAG retrieval
-        t_rag_start = time.time()
+        t_rag_start = time.perf_counter()
         rag_result = rag_service.query_knowledge(
             query_text=corrected_bangla,
             crop=crop,
@@ -132,7 +132,7 @@ def diagnose_crop():
             english_translation=english_translation
         )
         rag_docs = rag_result.get("retrieved_chunks", [])
-        rag_latency = int((time.time() - t_rag_start) * 1000)
+        rag_latency = int((time.perf_counter() - t_rag_start) * 1000)
 
         # Retrieve previous history if conversation_id is provided
         conversation_id = data.get("conversation_id")
@@ -158,7 +158,7 @@ def diagnose_crop():
                 history_context = "\n\n".join(history_parts)
 
         # Step 6: AI Advisor response synthesis
-        t_adv_start = time.time()
+        t_adv_start = time.perf_counter()
         advisor_result = advisor_service.generate_advice(
             farmer_query=corrected_bangla,
             intent_data=intent_result,
@@ -167,7 +167,7 @@ def diagnose_crop():
             history_context=history_context
         )
         recommendation_text = advisor_result.get("bangla_recommendation", "")
-        advisor_latency = int((time.time() - t_adv_start) * 1000)
+        advisor_latency = int((time.perf_counter() - t_adv_start) * 1000)
 
         # Step 7: System Confidence score mapping
         confidence_result = confidence_service.calculate_confidence(
@@ -193,22 +193,33 @@ def diagnose_crop():
         )
 
         # Step 9: Speech synthesis (TTS)
-        t_tts_start = time.time()
+        t_tts_start = time.perf_counter()
         logger.info("Pipeline: Synthesizing Bangla advice to voice...")
         recommendation_audio_url = tts_service.synthesize(recommendation_text, voice_gender="female")
-        tts_latency = int((time.time() - t_tts_start) * 1000)
+        tts_latency = int((time.perf_counter() - t_tts_start) * 1000)
 
         import datetime
         timestamp_str = datetime.datetime.utcnow().isoformat()
-        total_latency = int((time.time() - t_start) * 1000)
+        total_latency = int((time.perf_counter() - t_start) * 1000)
         
         # Estimate tokens
         rag_context_len = sum(len(c.get("text", "")) for c in rag_docs)
         input_token_count = (len(corrected_bangla) + rag_context_len + len(history_context)) // 4
         output_token_count = len(recommendation_text) // 4
         
+        from app.config.settings import Config
+        stage_status = {
+            "stt": "executed" if audio_path else "skipped",
+            "correction": "mock_fallback" if Config.USE_MOCK_LLM else "executed",
+            "weather": "executed",
+            "intent": "mock_fallback" if Config.USE_MOCK_LLM else "executed",
+            "rag": "executed",
+            "advisor": "mock_fallback" if Config.USE_MOCK_LLM else "executed",
+            "tts": "mock_fallback" if Config.USE_MOCK_TTS else "executed"
+        }
+
         metrics = {
-            "stt_latency_ms": stt_latency,
+            "stt_latency_ms": stt_latency if audio_path else 0,
             "correction_latency_ms": correction_latency,
             "intent_latency_ms": intent_latency,
             "weather_latency_ms": weather_latency,
@@ -218,7 +229,8 @@ def diagnose_crop():
             "total_latency_ms": total_latency,
             "input_token_count": input_token_count,
             "output_token_count": output_token_count,
-            "retrieved_doc_count": len(rag_docs)
+            "retrieved_doc_count": len(rag_docs),
+            "stage_status": stage_status
         }
 
         # Step 10: Model instantiation & validation

@@ -705,10 +705,58 @@ function updateDashboard(data) {
         { key: "tts", value: metrics.tts_latency_ms }
     ];
     
+    const stageStatus = metrics.stage_status || {};
+    
     stages.forEach(stg => {
         const bar = document.getElementById(`bar-latency-${stg.key}`);
         const label = document.getElementById(`label-latency-${stg.key}`);
-        if (label) label.textContent = stg.value !== undefined ? `${stg.value} ms` : "-- ms";
+        if (label) {
+            const statusKey = stageStatus[stg.key] || "";
+            let valStr = "";
+            
+            if (stg.value === undefined || stg.value === null) {
+                valStr = "N/A";
+            } else if (stg.value === 0) {
+                if (statusKey === "skipped") {
+                    valStr = "N/A";
+                } else {
+                    valStr = "<1 ms";
+                }
+            } else {
+                valStr = `${stg.value} ms`;
+            }
+            
+            let statusText = "N/A";
+            let badgeClass = "badge-medium"; // Default orange
+            
+            if (statusKey === "executed") {
+                statusText = "Live";
+                badgeClass = "badge-low"; // Green
+            } else if (statusKey === "mock_fallback") {
+                if (stg.key === "tts") {
+                    statusText = "Mock TTS fallback";
+                } else {
+                    statusText = "Mock LLM fallback";
+                }
+                badgeClass = "badge-medium"; // Orange
+            } else if (statusKey === "skipped") {
+                statusText = "Skipped";
+                badgeClass = "badge-medium"; // Orange
+            } else if (statusKey === "error") {
+                statusText = "Error";
+                badgeClass = "badge-high"; // Red
+            } else if (statusKey === "fallback") {
+                statusText = "Fallback";
+                badgeClass = "badge-medium"; // Orange
+            }
+            
+            label.innerHTML = `
+                <div style="display: inline-flex; align-items: center; gap: 0.5rem; justify-content: flex-end; width: 100%;">
+                    <span>${valStr}</span>
+                    <span class="badge ${badgeClass}" style="font-size: 0.72rem; padding: 2px 6px; font-weight: 700; white-space: nowrap;">${statusText}</span>
+                </div>
+            `;
+        }
         if (bar) {
             const pct = totalLatency > 0 ? Math.min(100, ((stg.value || 0) / totalLatency) * 100) : 0;
             bar.style.width = `${pct}%`;
