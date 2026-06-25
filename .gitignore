@@ -6,3 +6,4 @@ data/generated_audio/
 data/uploads/
 data/history_detailed.json
 data/conversation_history.json
+.env
