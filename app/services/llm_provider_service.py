@@ -19,7 +19,7 @@ class LLMProviderService:
         if self.gemini_key and not self.use_mock:
             try:
                 genai.configure(api_key=self.gemini_key)
-                self.gemini_model = genai.GenerativeModel("gemini-1.5-flash")
+                self.gemini_model = genai.GenerativeModel("gemini-2.0-flash")
                 logger.info("LLM Provider: Gemini initialized successfully.")
             except Exception as e:
                 logger.error(f"LLM Provider: Failed to init Gemini: {e}")
@@ -35,7 +35,9 @@ class LLMProviderService:
                     generation_config={"response_mime_type": "application/json"}
                 )
                 if response.text:
-                    return json.loads(response.text.strip())
+                    result = json.loads(response.text.strip())
+                    result["_is_mock_fallback"] = False
+                    return result
             except Exception as e:
                 logger.error(f"LLM Provider: Gemini inference failed: {e}. Trying fallback.")
 
@@ -60,13 +62,16 @@ class LLMProviderService:
                     # Extract JSON from generated text
                     json_match = self._extract_json(text)
                     if json_match:
+                        json_match["_is_mock_fallback"] = False
                         return json_match
             except Exception as e:
                 logger.error(f"LLM Provider: HF inference failed: {e}. Trying local rule-based mock.")
 
         # 3. Offline Rule-based Mock / Demo Fallback
         logger.info("LLM Provider: Utilizing offline rule-based mock.")
-        return self._mock_reasoning_fallback(user_prompt)
+        result = self._mock_reasoning_fallback(user_prompt)
+        result["_is_mock_fallback"] = True
+        return result
 
     def _extract_json(self, text: str) -> Optional[Dict[str, Any]]:
         """Safely extracts JSON from markdown or raw strings."""

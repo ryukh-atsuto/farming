@@ -2,8 +2,11 @@ __pycache__/
 *.pyc
 *.log
 data/chroma_db/
+data/chromadb/
 data/generated_audio/
+data/tts/
 data/uploads/
 data/history_detailed.json
 data/conversation_history.json
+data/conversations.json
 .env

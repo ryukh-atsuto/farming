@@ -113,7 +113,7 @@ class WhisperService:
                 audio_file = genai.upload_file(path=str(processed_path))
                 
                 # Ask Gemini to transcribe the audio
-                model = genai.GenerativeModel("gemini-1.5-flash")
+                model = genai.GenerativeModel("gemini-2.0-flash")
                 prompt = (
                     "Please listen to this Bengali audio recording. "
                     "Transcribe exactly what is being said in Bengali. "

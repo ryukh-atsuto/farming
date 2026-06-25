@@ -91,7 +91,7 @@ class STTService:
                 genai.configure(api_key=Config.GEMINI_API_KEY)
                 audio_file = genai.upload_file(path=str(audio_path))
                 
-                model = genai.GenerativeModel("gemini-1.5-flash")
+                model = genai.GenerativeModel("gemini-2.0-flash")
                 prompt = (
                     "Please listen to this audio clip and transcribe the spoken words "
                     "exactly in standard Bengali characters. Only output the transcription, "

@@ -98,14 +98,13 @@ class AdvisorService:
 
         # Format system instruction and parameters
         try:
-            formatted_instruction = AGRICULTURAL_ADVISOR_PROMPT.format(
-                farmer_query=farmer_query,
-                intent_json=json.dumps(intent_data, ensure_ascii=False),
-                weather_json=json.dumps(weather_data, ensure_ascii=False),
-                seasonal_context=json.dumps(seasonal_ctx, ensure_ascii=False),
-                history_context=history_context or "No previous turns.",
-                rag_context=rag_context
-            )
+            formatted_instruction = AGRICULTURAL_ADVISOR_PROMPT
+            formatted_instruction = formatted_instruction.replace("{farmer_query}", farmer_query)
+            formatted_instruction = formatted_instruction.replace("{intent_json}", json.dumps(intent_data, ensure_ascii=False))
+            formatted_instruction = formatted_instruction.replace("{weather_json}", json.dumps(weather_data, ensure_ascii=False))
+            formatted_instruction = formatted_instruction.replace("{seasonal_context}", json.dumps(seasonal_ctx, ensure_ascii=False))
+            formatted_instruction = formatted_instruction.replace("{history_context}", history_context or "No previous turns.")
+            formatted_instruction = formatted_instruction.replace("{rag_context}", rag_context)
         except Exception as e:
             logger.error(f"Failed to format advisor prompt template: {e}")
             formatted_instruction = AGRICULTURAL_ADVISOR_PROMPT

@@ -208,14 +208,18 @@ def diagnose_crop():
         output_token_count = len(recommendation_text) // 4
         
         from app.config.settings import Config
+        is_corr_fallback = Config.USE_MOCK_LLM or asr_result.get("_is_mock_fallback", False)
+        is_intent_fallback = Config.USE_MOCK_LLM or intent_result.get("_is_mock_fallback", False)
+        is_advisor_fallback = Config.USE_MOCK_LLM or advisor_result.get("_is_mock_fallback", False)
+        
         stage_status = {
             "stt": "executed" if audio_path else "skipped",
-            "correction": "mock_fallback" if Config.USE_MOCK_LLM else "executed",
+            "correction": "mock_fallback" if is_corr_fallback else "executed",
             "weather": "executed",
-            "intent": "mock_fallback" if Config.USE_MOCK_LLM else "executed",
+            "intent": "mock_fallback" if is_intent_fallback else "executed",
             "rag": "executed",
-            "advisor": "mock_fallback" if Config.USE_MOCK_LLM else "executed",
-            "tts": "mock_fallback" if Config.USE_MOCK_TTS else "executed"
+            "advisor": "mock_fallback" if is_advisor_fallback else "executed",
+            "tts": getattr(tts_service, "last_synthesis_method", "mock_fallback")
         }
 
         metrics = {

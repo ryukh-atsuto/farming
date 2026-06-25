@@ -29,6 +29,7 @@ class TTSService:
         Synthesize text to audio.
         Returns the relative file path to the output audio file (wav or mp3).
         """
+        self.last_synthesis_method = "unknown"
         if not text or not text.strip():
             return ""
             
@@ -44,31 +45,43 @@ class TTSService:
         # If file already exists, return its relative path directly (caching!)
         if output_filepath.exists():
             logger.info(f"Using cached TTS file: {filename}")
+            if Config.USE_MOCK_TTS:
+                self.last_synthesis_method = "mock_fallback"
+            elif self.piper_ready:
+                self.last_synthesis_method = "piper"
+            else:
+                # If cached, it might be from edge-tts
+                self.last_synthesis_method = "edge-tts"
             return f"/static/audio/{filename}"
 
         # If mock TTS is requested, handle it immediately
         if Config.USE_MOCK_TTS:
             success = self._run_mock_tts(text, str(output_filepath))
             if success:
+                self.last_synthesis_method = "mock_fallback"
                 return f"/static/audio/{filename}"
 
         if self.piper_ready:
             success = self._run_piper(text, str(output_filepath))
             if success:
+                self.last_synthesis_method = "piper"
                 # Flask view static mapping: we will expose the tts folder under /static/audio
                 return f"/static/audio/{filename}"
                 
         # Fallback to Edge-TTS
         success = self._run_edge_tts(text, str(output_filepath), voice_gender)
         if success:
+            self.last_synthesis_method = "edge-tts"
             return f"/static/audio/{filename}"
             
         # Last resort: gTTS or dummy audio file
         success = self._run_gtts_fallback(text, str(output_filepath))
         if success:
+            self.last_synthesis_method = "gtts"
             return f"/static/audio/{filename}"
             
         logger.error("All TTS synthesis pipelines failed.")
+        self.last_synthesis_method = "failed"
         return ""
 
     def _run_mock_tts(self, text: str, output_path: str) -> bool:

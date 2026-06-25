@@ -10,7 +10,7 @@ class GeminiService:
         self.api_key = Config.GEMINI_API_KEY
         if self.api_key:
             genai.configure(api_key=self.api_key)
-            self.model_flash = genai.GenerativeModel("gemini-1.5-flash")
+            self.model_flash = genai.GenerativeModel("gemini-2.0-flash")
             logger.info("Gemini Service initialized successfully.")
         else:
             logger.warning("GEMINI_API_KEY not found. Gemini Service will operate in offline/mock mode.")

@@ -351,7 +351,16 @@ async function runVisualPipeline(scenario, resultPromise) {
             
             if (pipelineData && pipelineData.metrics) {
                 const latency = pipelineData.metrics[step.key];
-                el.querySelector(".step-status").textContent = `✓ ${latency || 0}ms`;
+                const stageKey = step.key.replace("_latency_ms", "");
+                const stageStatus = pipelineData.metrics.stage_status ? pipelineData.metrics.stage_status[stageKey] : "";
+                
+                if (stageStatus === "skipped") {
+                    el.querySelector(".step-status").textContent = "✓ Skipped";
+                } else if (latency === 0 || latency === undefined || latency === null) {
+                    el.querySelector(".step-status").textContent = "✓ <1ms";
+                } else {
+                    el.querySelector(".step-status").textContent = `✓ ${latency}ms`;
+                }
             } else {
                 el.querySelector(".step-status").textContent = "✓ Completed";
             }
@@ -732,6 +741,15 @@ function updateDashboard(data) {
             if (statusKey === "executed") {
                 statusText = "Live";
                 badgeClass = "badge-low"; // Green
+            } else if (statusKey === "edge-tts") {
+                statusText = "Edge-TTS Live";
+                badgeClass = "badge-low"; // Green
+            } else if (statusKey === "piper") {
+                statusText = "Piper TTS Offline";
+                badgeClass = "badge-low"; // Green
+            } else if (statusKey === "gtts") {
+                statusText = "gTTS Fallback";
+                badgeClass = "badge-medium"; // Orange
             } else if (statusKey === "mock_fallback") {
                 if (stg.key === "tts") {
                     statusText = "Mock TTS fallback";
