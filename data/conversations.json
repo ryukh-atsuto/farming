@@ -1,0 +1,46 @@
+[
+    {
+        "conversation_id": "9d060d7d-2821-4dab-a3f9-764bd3ffecfc",
+        "farmer_id": null,
+        "user_audio_path": "",
+        "transcript": "Rice blast",
+        "corrected_transcript": "ধান গাছের গিট পচে ভেঙে যাচ্ছে এবং পাতা পুড়ে যাচ্ছে",
+        "advisor_response": "কৃষক ভাই, আপনার শস্যের সমস্যাটি সুনির্দিষ্টভাবে নির্ণয় করা সম্ভব হয়নি। অনুগ্রহ করে জমিতে অতিরিক্ত ইউরিয়া ছিটানো বন্ধ রাখুন, নিষ্কাশন ব্যবস্থা পরীক্ষা করুন এবং নিকটস্থ কৃষি কর্মকর্তার সাথে যোগাযোগ করুন। সঠিক কীটনাশকের মাত্রার জন্য পরামর্শ নিন।",
+        "response_audio_path": "/static/audio/tts_3339816229.mp3",
+        "diagnosis_summary": {
+            "crop": "rice",
+            "symptoms": [
+                "node rot",
+                "leaf drying",
+                "neck rot"
+            ],
+            "severity": "high",
+            "urgency": "urgent",
+            "confidence": 0.79,
+            "badge": {
+                "badge_type": "warning",
+                "label": "Human Agronomist Review Recommended",
+                "css_class": "badge-warning",
+                "description": "Linguistic patterns or RAG index bounds returned high uncertainty scores. Review recommended."
+            }
+        },
+        "timestamp": "2026-06-25T08:51:20.508945"
+    },
+    {
+        "conversation_id": "b3275b5b-7027-4bba-84ca-5946926a61ee",
+        "farmer_id": null,
+        "user_audio_path": "",
+        "transcript": "আমার ধানের পাতায় বাদামী দাগ পড়েছে",
+        "corrected_transcript": "আমার ধানের পাতায় বাদামী দাগ পড়েছে",
+        "advisor_response": "দুঃখিত, বর্তমানে এআই পরামর্শক অফলাইন আছে। অনুগ্রহ করে আপনার ধানের ক্ষেত নিয়মিত পর্যবেক্ষণ করুন এবং কোনো রাসায়নিক ছিটানোর আগে কৃষি কর্মকর্তার পরামর্শ নিন।",
+        "response_audio_path": "/static/audio/tts_2512371921.mp3",
+        "diagnosis_summary": {
+            "crop": "Rice",
+            "symptoms": "Yellowing leaves",
+            "severity": "Medium",
+            "urgency": "Medium",
+            "confidence": 0.5
+        },
+        "timestamp": "2026-06-25T01:44:00.316979"
+    }
+]

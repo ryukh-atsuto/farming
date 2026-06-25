@@ -1,0 +1,968 @@
+{
+    "rice_brown_leaf_spot": {
+        "conversation_id": "rice_brown_leaf_spot",
+        "raw_transcript": "আমার ধানের পাতায় বাদামী দাগ পড়েছে",
+        "asr_corrected": {
+            "id": "rice_brown_leaf_spot",
+            "title": "Rice Brown Leaf Spot (ধানের বাদামী দাগ রোগ)",
+            "farmer_complaint": "আমার ধানের পাতায় বাদামী দাগ পড়েছে",
+            "raw_transcript": "আমার ধানের পাতায় বাদামী দাগ পড়েছে",
+            "corrected_bangla": "আমার ধানের পাতায় বাদামী দাগ পড়েছে",
+            "english_translation": "Brown spots have appeared on my rice leaves.",
+            "crop": "rice",
+            "symptoms": [
+                "brown spots on leaves",
+                "leaf drying"
+            ],
+            "severity": "medium",
+            "urgency": "normal",
+            "weather": {
+                "location_name": "Mymensingh Demo Farm",
+                "temperature_c": 31.2,
+                "humidity_percent": 84.0,
+                "rain_probability": 65.0,
+                "forecast_summary": "High humidity with scattered thunder showers expected.",
+                "weather_risk_factors": [
+                    "High humidity creates favorable conditions for fungal spore spread."
+                ]
+            },
+            "diagnosis_title": "ধানের বাদামী দাগ রোগ (Brown Leaf Spot)",
+            "likely_problem": "Fungal infection caused by Bipolaris oryzae",
+            "confidence_score": 0.85,
+            "risk_level": "medium",
+            "bangla_recommendation": "কৃষক ভাই, আপনার ধানের জমিতে বাদামী দাগ বা ব্রাউন স্পট রোগ দেখা দিয়েছে। এটি একটি ছত্রাকজনিত রোগ। প্রতিকারের জন্য জমিতে সুষম সার ব্যবহার করুন, বিশেষ করে পটাশ সার সঠিক মাত্রায় দিন। আক্রমণ তীব্র হলে প্রতি লিটার পানিতে ট্রাইসাইক্লাজল ৭২ ডব্লিউপি (যেমন: ট্রুপার) ০.৭৫ গ্রাম অথবা প্রপিকোনাজল (যেমন: টিল্ট ২৫০ ইসি) ১ মিলি মিশিয়ে ১০-১২ দিন পর পর ২ বার স্প্রে করুন। জমিতে পানি ধরে রাখুন এবং আক্রান্ত গাছের অবশিষ্টাংশ পুড়িয়ে ফেলুন।",
+            "english_summary": "Diagnosed with Rice Brown Leaf Spot disease. Caused by nutritional deficiency (mainly Potassium) and fungal pathogens. Recommended balance fertilizer and systemic fungicide application.",
+            "immediate_actions": [
+                "জমিতে পর্যাপ্ত ইউরিয়া ও পটাশ সার সুষম মাত্রায় প্রয়োগ করুন।",
+                "জমিতে পানির অভাব হতে দেবেন না, পর্যাপ্ত পানি রাখুন।",
+                "ছত্রাকনাশক স্প্রে করার ব্যবস্থা করুন।"
+            ],
+            "what_to_avoid": [
+                "অতিরিক্ত ইউরিয়া সার প্রয়োগ করা থেকে বিরত থাকুন।",
+                "আক্রান্ত জমির পানি সুস্থ জমিতে প্রবাহিত করবেন না।"
+            ],
+            "human_review_required": false,
+            "human_review_reasons": [],
+            "uncertainty_explanation": "লক্ষণগুলো স্পষ্ট, তবে ছত্রাকনাশক কেনার আগে ডিলার বা উপ-সহকারী কৃষি কর্মকর্তার সাথে পরামর্শ করে ঔষধের মেয়াদ দেখে নিন।",
+            "source_documents_used": [
+                "rice_disease_manual.txt",
+                "brri_brown_spot_guide.txt"
+            ],
+            "weather_factors_used": [
+                "High humidity (84%) increases fungal spore growth rates."
+            ],
+            "detected_language_style": "unknown",
+            "asr_uncertainty_notes": [],
+            "affected_parts": [],
+            "location_text": "unknown",
+            "farmer_intent": "unknown",
+            "suspected_problem_type": "unknown",
+            "human_review_triggered": false
+        },
+        "intent": {
+            "id": "rice_brown_leaf_spot",
+            "title": "Rice Brown Leaf Spot (ধানের বাদামী দাগ রোগ)",
+            "farmer_complaint": "আমার ধানের পাতায় বাদামী দাগ পড়েছে",
+            "raw_transcript": "আমার ধানের পাতায় বাদামী দাগ পড়েছে",
+            "corrected_bangla": "আমার ধানের পাতায় বাদামী দাগ পড়েছে",
+            "english_translation": "Brown spots have appeared on my rice leaves.",
+            "crop": "rice",
+            "symptoms": [
+                "brown spots on leaves",
+                "leaf drying"
+            ],
+            "severity": "medium",
+            "urgency": "normal",
+            "weather": {
+                "location_name": "Mymensingh Demo Farm",
+                "temperature_c": 31.2,
+                "humidity_percent": 84.0,
+                "rain_probability": 65.0,
+                "forecast_summary": "High humidity with scattered thunder showers expected.",
+                "weather_risk_factors": [
+                    "High humidity creates favorable conditions for fungal spore spread."
+                ]
+            },
+            "diagnosis_title": "ধানের বাদামী দাগ রোগ (Brown Leaf Spot)",
+            "likely_problem": "Fungal infection caused by Bipolaris oryzae",
+            "confidence_score": 0.85,
+            "risk_level": "medium",
+            "bangla_recommendation": "কৃষক ভাই, আপনার ধানের জমিতে বাদামী দাগ বা ব্রাউন স্পট রোগ দেখা দিয়েছে। এটি একটি ছত্রাকজনিত রোগ। প্রতিকারের জন্য জমিতে সুষম সার ব্যবহার করুন, বিশেষ করে পটাশ সার সঠিক মাত্রায় দিন। আক্রমণ তীব্র হলে প্রতি লিটার পানিতে ট্রাইসাইক্লাজল ৭২ ডব্লিউপি (যেমন: ট্রুপার) ০.৭৫ গ্রাম অথবা প্রপিকোনাজল (যেমন: টিল্ট ২৫০ ইসি) ১ মিলি মিশিয়ে ১০-১২ দিন পর পর ২ বার স্প্রে করুন। জমিতে পানি ধরে রাখুন এবং আক্রান্ত গাছের অবশিষ্টাংশ পুড়িয়ে ফেলুন।",
+            "english_summary": "Diagnosed with Rice Brown Leaf Spot disease. Caused by nutritional deficiency (mainly Potassium) and fungal pathogens. Recommended balance fertilizer and systemic fungicide application.",
+            "immediate_actions": [
+                "জমিতে পর্যাপ্ত ইউরিয়া ও পটাশ সার সুষম মাত্রায় প্রয়োগ করুন।",
+                "জমিতে পানির অভাব হতে দেবেন না, পর্যাপ্ত পানি রাখুন।",
+                "ছত্রাকনাশক স্প্রে করার ব্যবস্থা করুন।"
+            ],
+            "what_to_avoid": [
+                "অতিরিক্ত ইউরিয়া সার প্রয়োগ করা থেকে বিরত থাকুন।",
+                "আক্রান্ত জমির পানি সুস্থ জমিতে প্রবাহিত করবেন না।"
+            ],
+            "human_review_required": false,
+            "human_review_reasons": [],
+            "uncertainty_explanation": "লক্ষণগুলো স্পষ্ট, তবে ছত্রাকনাশক কেনার আগে ডিলার বা উপ-সহকারী কৃষি কর্মকর্তার সাথে পরামর্শ করে ঔষধের মেয়াদ দেখে নিন।",
+            "source_documents_used": [
+                "rice_disease_manual.txt",
+                "brri_brown_spot_guide.txt"
+            ],
+            "weather_factors_used": [
+                "High humidity (84%) increases fungal spore growth rates."
+            ],
+            "detected_language_style": "unknown",
+            "asr_uncertainty_notes": [],
+            "affected_parts": [],
+            "location_text": "unknown",
+            "farmer_intent": "unknown",
+            "suspected_problem_type": "unknown",
+            "human_review_triggered": false
+        },
+        "weather": {
+            "temp": 27.3,
+            "humidity": 90,
+            "rainfall": 0.0,
+            "wind_speed": 9.1,
+            "description": "Mainly clear",
+            "forecast": [
+                "Day 1 (2026-06-26): 26.9C to 34.7C, Rain: 0.4mm",
+                "Day 2 (2026-06-27): 27.3C to 34.5C, Rain: 2.4mm",
+                "Day 3 (2026-06-28): 26.7C to 33.9C, Rain: 2.2mm"
+            ],
+            "raw_data": {
+                "latitude": 23.796133,
+                "longitude": 90.38055,
+                "generationtime_ms": 0.15878677368164062,
+                "utc_offset_seconds": 21600,
+                "timezone": "Asia/Dhaka",
+                "timezone_abbreviation": "GMT+6",
+                "elevation": 19.0,
+                "current_units": {
+                    "time": "iso8601",
+                    "interval": "seconds",
+                    "temperature_2m": "°C",
+                    "relative_humidity_2m": "%",
+                    "rain": "mm",
+                    "wind_speed_10m": "km/h",
+                    "weather_code": "wmo code"
+                },
+                "current": {
+                    "time": "2026-06-26T03:00",
+                    "interval": 900,
+                    "temperature_2m": 27.3,
+                    "relative_humidity_2m": 90,
+                    "rain": 0.0,
+                    "wind_speed_10m": 9.1,
+                    "weather_code": 1
+                },
+                "daily_units": {
+                    "time": "iso8601",
+                    "weather_code": "wmo code",
+                    "temperature_2m_max": "°C",
+                    "temperature_2m_min": "°C",
+                    "rain_sum": "mm"
+                },
+                "daily": {
+                    "time": [
+                        "2026-06-26",
+                        "2026-06-27",
+                        "2026-06-28",
+                        "2026-06-29",
+                        "2026-06-30",
+                        "2026-07-01",
+                        "2026-07-02"
+                    ],
+                    "weather_code": [
+                        95,
+                        95,
+                        96,
+                        96,
+                        96,
+                        99,
+                        95
+                    ],
+                    "temperature_2m_max": [
+                        34.7,
+                        34.5,
+                        33.9,
+                        33.6,
+                        32.4,
+                        31.7,
+                        31.4
+                    ],
+                    "temperature_2m_min": [
+                        26.9,
+                        27.3,
+                        26.7,
+                        27.2,
+                        26.4,
+                        26.8,
+                        26.4
+                    ],
+                    "rain_sum": [
+                        0.4,
+                        2.4,
+                        2.2,
+                        4.3,
+                        5.4,
+                        3.6,
+                        3.6
+                    ]
+                }
+            }
+        },
+        "rag": {
+            "retrieved_chunks": [
+                {
+                    "source_name": "Unknown Source",
+                    "page_number": 1,
+                    "text": "Rice Brown Spot is caused by the fungus Bipolaris oryzae. Symptoms: Small, oval, dark brown spots on the leaves resembling sesame seeds. This disease usually infects nutrient-deficient, poorly drained soils, particularly where potassium/potash is low. High temperature and high humidity favor growth. Control: Apply balanced fertilizer with recommended doses of Muriate of Potash (MOP) or organic compost. Improve soil health. In severe cases, spray fungicides containing Mancozeb or Carbendazim. (ধানের বাদামী দাগ রোগ সাধারণত পটাশ সারের ঘাটতির কারণে হয়ে থাকে। জমিতে পর্যাপ্ত পটাশ সার ব্যবহার করতে হবে।)",
+                    "relevance_score": 0.69,
+                    "crop": "Rice",
+                    "disease": "general"
+                },
+                {
+                    "source_name": "Unknown Source",
+                    "page_number": 1,
+                    "text": "Rice Blast disease is caused by the fungus Magnaporthe oryzae (Pyricularia oryzae). Symptoms include spindle-shaped spots on leaves with gray centers and brown borders (leaf blast), or rotting nodes/collars (node blast). Warm nights (25-28C) combined with high relative humidity (above 90%) and morning dew accelerate fungal germination. Excess nitrogen fertilizer increases vulnerability. Control measures: Avoid excess urea. Keep the field flooded to inhibit spore spread. Spray fungicides like Tricyclazole (e.g., Trooper/Troja) at recommended levels or use organic solutions like neem seed kernel extract. (ধানের ব্লাস্ট রোগ প্রতিরোধে অতিরিক্ত ইউরিয়া সার ব্যবহার পরিহার করতে হবে। জমিতে পানির পরিমাণ বজায় রাখতে হবে। ট্রাইসাইক্লাজোল গ্রুপের ছত্রাকনাশক ব্যবহার করা যেতে পারে।)",
+                    "relevance_score": 0.52,
+                    "crop": "Rice",
+                    "disease": "general"
+                },
+                {
+                    "source_name": "Unknown Source",
+                    "page_number": 1,
+                    "text": "Rice Tungro Disease is a viral infection transmitted by the Green Leafhopper (Nephotettix virescens). Symptoms include stunting of rice plants, yellowing or orange discoloration of leaves starting from the tips, and reduced tillering. The virus cannot be treated directly. Control consists of managing the green leafhopper vector. Uproot and burn infected plants early. Apply balanced nitrogen fertilizer. Spray insecticidal soap or neem oil to suppress leafhopper populations, or use chemicals like MIPC/Imidacloprid if populations exceed threshold levels. (টুংরো রোগ মূলত সবুজ পাতা ফড়িং দ্বারা ছড়ায়। আক্রান্ত গাছ তুলে ধ্বংস করতে হবে এবং পাতা ফড়িং দমনের ব্যবস্থা নিতে হবে।)",
+                    "relevance_score": 0.49,
+                    "crop": "Rice",
+                    "disease": "general"
+                }
+            ]
+        },
+        "advisor": {
+            "raw_transcript": "Please provide standard diagnosis and recommendation.",
+            "corrected_bangla": "Please provide standard diagnosis and recommendation.",
+            "english_translation": "General crop leaf issue query.",
+            "crop": "unknown",
+            "symptoms": [
+                "unknown spot"
+            ],
+            "severity": "medium",
+            "urgency": "normal",
+            "weather_factors_used": [
+                "Default weather values used."
+            ],
+            "diagnosis_title": "অনির্ণীত শস্য সমস্যা",
+            "likely_problem": "General agricultural stress",
+            "confidence_score": 0.88,
+            "risk_level": "medium",
+            "bangla_recommendation": "কৃষক ভাই, আপনার শস্যের সমস্যাটি সুনির্দিষ্টভাবে নির্ণয় করা সম্ভব হয়নি। অনুগ্রহ করে জমিতে অতিরিক্ত ইউরিয়া ছিটানো বন্ধ রাখুন, নিষ্কাশন ব্যবস্থা পরীক্ষা করুন এবং নিকটস্থ কৃষি কর্মকর্তার সাথে যোগাযোগ করুন। সঠিক কীটনাশকের মাত্রার জন্য পরামর্শ নিন।",
+            "english_summary": "Unresolved crop problem. Recommended balanced water management and consultation with local block supervisors.",
+            "immediate_actions": [
+                "জমির পানি নিষ্কাশন ব্যবস্থা উন্নত করুন।",
+                "কৃষি কর্মকর্তার পরামর্শ নিন।"
+            ],
+            "what_to_avoid": [
+                "অতিরিক্ত রাসায়নিক স্প্রে করা থেকে বিরত থাকুন।"
+            ],
+            "human_review_required": true,
+            "human_review_reasons": [
+                "unsupported_crop_or_symptom_complexity",
+                "low_confidence_score"
+            ],
+            "uncertainty_explanation": "লক্ষণগুলো অস্পষ্ট হওয়ায় এআই সুনির্দিষ্ট পরামর্শ দিতে পারেনি।",
+            "source_documents_used": [],
+            "reasoning_summary_for_judges": "Default fallback triggered due to missing keyword match.",
+            "seasonal_context": {
+                "crop_season": "Kharif-I (Summer / খরিপ-১)",
+                "regional_disease_risks": [
+                    "Stem Rot of Jute (পাটের কাণ্ড পচা)"
+                ],
+                "rainfall_threats": [],
+                "seasonal_pests": [
+                    "Jute Hairy Caterpillar (পাটের বিছা পোকা)",
+                    "Yellow Mite (হলুদ মাকড়)"
+                ]
+            }
+        },
+        "confidence": {
+            "asr_score": 1.0,
+            "intent_score": 1.0,
+            "rag_score": 0.69,
+            "weather_score": 1.0,
+            "system_confidence_score": 0.88
+        },
+        "badge": {
+            "badge_type": "warning",
+            "label": "Human Agronomist Review Recommended",
+            "css_class": "badge-warning",
+            "description": "Linguistic patterns or RAG index bounds returned high uncertainty scores. Review recommended."
+        },
+        "district": "Dhaka",
+        "audio_metadata": {
+            "duration": 5.0,
+            "sample_rate": 16000,
+            "channels": 1
+        },
+        "recommendation_audio_url": "/static/audio/tts_1033092269.wav",
+        "metrics": {
+            "stt_latency_ms": 1150,
+            "correction_latency_ms": 0,
+            "intent_latency_ms": 0,
+            "weather_latency_ms": 649,
+            "rag_latency_ms": 266,
+            "advisor_latency_ms": 1,
+            "tts_latency_ms": 1,
+            "total_latency_ms": 2069,
+            "input_token_count": 521,
+            "output_token_count": 60,
+            "retrieved_doc_count": 3
+        },
+        "timestamp": "2026-06-25T21:03:10Z"
+    },
+    "9d060d7d-2821-4dab-a3f9-764bd3ffecfc": {
+        "conversation_id": "9d060d7d-2821-4dab-a3f9-764bd3ffecfc",
+        "turns": [
+            {
+                "raw_transcript": "Rice blast",
+                "asr_corrected": {
+                    "id": "rice_blast",
+                    "title": "Rice Blast (ধানের ব্লাস্ট রোগ)",
+                    "farmer_complaint": "ধান গাছের গিট পচে ভেঙে যাচ্ছে আর পাতা পুড়ে যাচ্ছে",
+                    "raw_transcript": "ধান গাছের গিট পচে ভেঙে যাচ্ছে আর পাতা পুড়ে যাচ্ছে",
+                    "corrected_bangla": "ধান গাছের গিট পচে ভেঙে যাচ্ছে এবং পাতা পুড়ে যাচ্ছে",
+                    "english_translation": "Rice plant nodes are rotting, breaking, and leaves are drying up like fire.",
+                    "crop": "rice",
+                    "symptoms": [
+                        "node rot",
+                        "leaf drying",
+                        "neck rot"
+                    ],
+                    "severity": "high",
+                    "urgency": "urgent",
+                    "weather": {
+                        "location_name": "Sylhet Demo Farm",
+                        "temperature_c": 28.5,
+                        "humidity_percent": 90.0,
+                        "rain_probability": 80.0,
+                        "forecast_summary": "Continuous rain and warm conditions forecast.",
+                        "weather_risk_factors": [
+                            "Over 90% humidity is highly critical for neck blast propagation."
+                        ]
+                    },
+                    "diagnosis_title": "ধানের নেক ব্লাস্ট ও গিট ব্লাস্ট (Neck & Node Blast)",
+                    "likely_problem": "Fungal infection caused by Magnaporthe oryzae",
+                    "confidence_score": 0.92,
+                    "risk_level": "high",
+                    "bangla_recommendation": "কৃষক ভাই, এটি ধানের মারাত্মক নেক বা গিট ব্লাস্ট রোগ। অতি দ্রুত ব্যবস্থা না নিলে ফসল সম্পূর্ণ নষ্ট হতে পারে। প্রতিকারের জন্য জমিতে ট্রাইসাইক্লাজল ৭২ ডব্লিউপি (যেমন: ট্রুপার) প্রতি লিটার পানিতে ০.৭৫ গ্রাম অথবা টেবুকোনাজল+ট্রাইফ্লক্সিস্ট্রবিন (যেমন: নাটিভো ৭৫ ডব্লিউজি) প্রতি লিটার পানিতে ০.৬ গ্রাম মিশিয়ে ১০ দিন পর পর ২ বার স্প্রে করুন। বিকেল বেলা স্প্রে করবেন। জমিতে পর্যাপ্ত পানি ধরে রাখুন এবং এই অবস্থায় জমিতে অতিরিক্ত ইউরিয়া সার দেওয়া বন্ধ রাখুন। সঠিক মাত্রার জন্য কৃষি কর্মকর্তার পরামর্শ নিন।",
+                    "english_summary": "Diagnosed with severe Neck/Node Blast. Spreads rapidly under wet/warm conditions. Highly urgent action required. Spray systemic fungicides immediately and suspend nitrogen fertilizers.",
+                    "immediate_actions": [
+                        "জমিতে নাইট্রোজেন বা ইউরিয়া সার দেওয়া সম্পূর্ণ বন্ধ রাখুন।",
+                        "জমিতে পানি ধরে রাখুন এবং আর্দ্রতা বজায় রাখুন।",
+                        "অতি দ্রুত নাটিভো বা ট্রুপার জাতীয় ছত্রাকনাশক স্প্রে করুন।"
+                    ],
+                    "what_to_avoid": [
+                        "আক্রান্ত জমিতে ইউরিয়া সার স্প্রে বা ছিটানো বন্ধ করুন।",
+                        "দিনের প্রখর রোদে স্প্রে করা এড়িয়ে চলুন, বিকেলে স্প্রে করুন।"
+                    ],
+                    "human_review_required": true,
+                    "human_review_reasons": [
+                        "chemical_dosage_pesticide_imminent",
+                        "high_severity_crop_destruction_risk"
+                    ],
+                    "uncertainty_explanation": "যেহেতু এটি একটি মারাত্মক রাসায়নিক ছত্রাকনাশক নির্দেশ করে, তাই কৃষি কর্মকর্তার সরাসরি মতামত নেওয়া আবশ্যক।",
+                    "source_documents_used": [
+                        "brri_blast_management_guide.txt"
+                    ],
+                    "weather_factors_used": [
+                        "High humidity (90%) and rain forecasts accelerate pathogen spreading."
+                    ],
+                    "detected_language_style": "unknown",
+                    "asr_uncertainty_notes": [],
+                    "affected_parts": [],
+                    "location_text": "unknown",
+                    "farmer_intent": "unknown",
+                    "suspected_problem_type": "unknown",
+                    "human_review_triggered": false
+                },
+                "intent": {
+                    "id": "rice_blast",
+                    "title": "Rice Blast (ধানের ব্লাস্ট রোগ)",
+                    "farmer_complaint": "ধান গাছের গিট পচে ভেঙে যাচ্ছে আর পাতা পুড়ে যাচ্ছে",
+                    "raw_transcript": "ধান গাছের গিট পচে ভেঙে যাচ্ছে আর পাতা পুড়ে যাচ্ছে",
+                    "corrected_bangla": "ধান গাছের গিট পচে ভেঙে যাচ্ছে এবং পাতা পুড়ে যাচ্ছে",
+                    "english_translation": "Rice plant nodes are rotting, breaking, and leaves are drying up like fire.",
+                    "crop": "rice",
+                    "symptoms": [
+                        "node rot",
+                        "leaf drying",
+                        "neck rot"
+                    ],
+                    "severity": "high",
+                    "urgency": "urgent",
+                    "weather": {
+                        "location_name": "Sylhet Demo Farm",
+                        "temperature_c": 28.5,
+                        "humidity_percent": 90.0,
+                        "rain_probability": 80.0,
+                        "forecast_summary": "Continuous rain and warm conditions forecast.",
+                        "weather_risk_factors": [
+                            "Over 90% humidity is highly critical for neck blast propagation."
+                        ]
+                    },
+                    "diagnosis_title": "ধানের নেক ব্লাস্ট ও গিট ব্লাস্ট (Neck & Node Blast)",
+                    "likely_problem": "Fungal infection caused by Magnaporthe oryzae",
+                    "confidence_score": 0.92,
+                    "risk_level": "high",
+                    "bangla_recommendation": "কৃষক ভাই, এটি ধানের মারাত্মক নেক বা গিট ব্লাস্ট রোগ। অতি দ্রুত ব্যবস্থা না নিলে ফসল সম্পূর্ণ নষ্ট হতে পারে। প্রতিকারের জন্য জমিতে ট্রাইসাইক্লাজল ৭২ ডব্লিউপি (যেমন: ট্রুপার) প্রতি লিটার পানিতে ০.৭৫ গ্রাম অথবা টেবুকোনাজল+ট্রাইফ্লক্সিস্ট্রবিন (যেমন: নাটিভো ৭৫ ডব্লিউজি) প্রতি লিটার পানিতে ০.৬ গ্রাম মিশিয়ে ১০ দিন পর পর ২ বার স্প্রে করুন। বিকেল বেলা স্প্রে করবেন। জমিতে পর্যাপ্ত পানি ধরে রাখুন এবং এই অবস্থায় জমিতে অতিরিক্ত ইউরিয়া সার দেওয়া বন্ধ রাখুন। সঠিক মাত্রার জন্য কৃষি কর্মকর্তার পরামর্শ নিন।",
+                    "english_summary": "Diagnosed with severe Neck/Node Blast. Spreads rapidly under wet/warm conditions. Highly urgent action required. Spray systemic fungicides immediately and suspend nitrogen fertilizers.",
+                    "immediate_actions": [
+                        "জমিতে নাইট্রোজেন বা ইউরিয়া সার দেওয়া সম্পূর্ণ বন্ধ রাখুন।",
+                        "জমিতে পানি ধরে রাখুন এবং আর্দ্রতা বজায় রাখুন।",
+                        "অতি দ্রুত নাটিভো বা ট্রুপার জাতীয় ছত্রাকনাশক স্প্রে করুন।"
+                    ],
+                    "what_to_avoid": [
+                        "আক্রান্ত জমিতে ইউরিয়া সার স্প্রে বা ছিটানো বন্ধ করুন।",
+                        "দিনের প্রখর রোদে স্প্রে করা এড়িয়ে চলুন, বিকেলে স্প্রে করুন।"
+                    ],
+                    "human_review_required": true,
+                    "human_review_reasons": [
+                        "chemical_dosage_pesticide_imminent",
+                        "high_severity_crop_destruction_risk"
+                    ],
+                    "uncertainty_explanation": "যেহেতু এটি একটি মারাত্মক রাসায়নিক ছত্রাকনাশক নির্দেশ করে, তাই কৃষি কর্মকর্তার সরাসরি মতামত নেওয়া আবশ্যক।",
+                    "source_documents_used": [
+                        "brri_blast_management_guide.txt"
+                    ],
+                    "weather_factors_used": [
+                        "High humidity (90%) and rain forecasts accelerate pathogen spreading."
+                    ],
+                    "detected_language_style": "unknown",
+                    "asr_uncertainty_notes": [],
+                    "affected_parts": [],
+                    "location_text": "unknown",
+                    "farmer_intent": "unknown",
+                    "suspected_problem_type": "unknown",
+                    "human_review_triggered": false
+                },
+                "weather": {
+                    "temp": 35.8,
+                    "humidity": 53,
+                    "rainfall": 0.0,
+                    "wind_speed": 8.0,
+                    "description": "Thunderstorm",
+                    "forecast": [
+                        "Day 1 (2026-06-25): 26.2C to 35.6C, Rain: 3.2mm",
+                        "Day 2 (2026-06-26): 26.5C to 33.7C, Rain: 1.7mm",
+                        "Day 3 (2026-06-27): 27.1C to 33.9C, Rain: 3.8mm"
+                    ],
+                    "raw_data": {
+                        "latitude": 23.796133,
+                        "longitude": 90.38055,
+                        "generationtime_ms": 0.32770633697509766,
+                        "utc_offset_seconds": 21600,
+                        "timezone": "Asia/Dhaka",
+                        "timezone_abbreviation": "GMT+6",
+                        "elevation": 19.0,
+                        "current_units": {
+                            "time": "iso8601",
+                            "interval": "seconds",
+                            "temperature_2m": "°C",
+                            "relative_humidity_2m": "%",
+                            "rain": "mm",
+                            "wind_speed_10m": "km/h",
+                            "weather_code": "wmo code"
+                        },
+                        "current": {
+                            "time": "2026-06-25T14:45",
+                            "interval": 900,
+                            "temperature_2m": 35.8,
+                            "relative_humidity_2m": 53,
+                            "rain": 0.0,
+                            "wind_speed_10m": 8.0,
+                            "weather_code": 95
+                        },
+                        "daily_units": {
+                            "time": "iso8601",
+                            "weather_code": "wmo code",
+                            "temperature_2m_max": "°C",
+                            "temperature_2m_min": "°C",
+                            "rain_sum": "mm"
+                        },
+                        "daily": {
+                            "time": [
+                                "2026-06-25",
+                                "2026-06-26",
+                                "2026-06-27",
+                                "2026-06-28",
+                                "2026-06-29",
+                                "2026-06-30",
+                                "2026-07-01"
+                            ],
+                            "weather_code": [
+                                99,
+                                95,
+                                99,
+                                96,
+                                96,
+                                95,
+                                96
+                            ],
+                            "temperature_2m_max": [
+                                35.6,
+                                33.7,
+                                33.9,
+                                33.1,
+                                31.8,
+                                30.5,
+                                31.9
+                            ],
+                            "temperature_2m_min": [
+                                26.2,
+                                26.5,
+                                27.1,
+                                26.7,
+                                26.9,
+                                26.9,
+                                26.3
+                            ],
+                            "rain_sum": [
+                                3.2,
+                                1.7,
+                                3.8,
+                                1.5,
+                                4.1,
+                                4.7,
+                                4.1
+                            ]
+                        }
+                    },
+                    "resolved_district": "Dhaka"
+                },
+                "rag": {
+                    "retrieved_chunks": [
+                        {
+                            "source_name": "Unknown Source",
+                            "page_number": 1,
+                            "text": "Rice Blast disease is caused by the fungus Magnaporthe oryzae (Pyricularia oryzae). Symptoms include spindle-shaped spots on leaves with gray centers and brown borders (leaf blast), or rotting nodes/collars (node blast). Warm nights (25-28C) combined with high relative humidity (above 90%) and morning dew accelerate fungal germination. Excess nitrogen fertilizer increases vulnerability. Control measures: Avoid excess urea. Keep the field flooded to inhibit spore spread. Spray fungicides like Tricyclazole (e.g., Trooper/Troja) at recommended levels or use organic solutions like neem seed kernel extract. (ধানের ব্লাস্ট রোগ প্রতিরোধে অতিরিক্ত ইউরিয়া সার ব্যবহার পরিহার করতে হবে। জমিতে পানির পরিমাণ বজায় রাখতে হবে। ট্রাইসাইক্লাজোল গ্রুপের ছত্রাকনাশক ব্যবহার করা যেতে পারে।)",
+                            "relevance_score": 0.48,
+                            "crop": "Rice",
+                            "disease": "general"
+                        },
+                        {
+                            "source_name": "Unknown Source",
+                            "page_number": 1,
+                            "text": "Rice Tungro Disease is a viral infection transmitted by the Green Leafhopper (Nephotettix virescens). Symptoms include stunting of rice plants, yellowing or orange discoloration of leaves starting from the tips, and reduced tillering. The virus cannot be treated directly. Control consists of managing the green leafhopper vector. Uproot and burn infected plants early. Apply balanced nitrogen fertilizer. Spray insecticidal soap or neem oil to suppress leafhopper populations, or use chemicals like MIPC/Imidacloprid if populations exceed threshold levels. (টুংরো রোগ মূলত সবুজ পাতা ফড়িং দ্বারা ছড়ায়। আক্রান্ত গাছ তুলে ধ্বংস করতে হবে এবং পাতা ফড়িং দমনের ব্যবস্থা নিতে হবে।)",
+                            "relevance_score": 0.45,
+                            "crop": "Rice",
+                            "disease": "general"
+                        },
+                        {
+                            "source_name": "Unknown Source",
+                            "page_number": 1,
+                            "text": "Rice Brown Spot is caused by the fungus Bipolaris oryzae. Symptoms: Small, oval, dark brown spots on the leaves resembling sesame seeds. This disease usually infects nutrient-deficient, poorly drained soils, particularly where potassium/potash is low. High temperature and high humidity favor growth. Control: Apply balanced fertilizer with recommended doses of Muriate of Potash (MOP) or organic compost. Improve soil health. In severe cases, spray fungicides containing Mancozeb or Carbendazim. (ধানের বাদামী দাগ রোগ সাধারণত পটাশ সারের ঘাটতির কারণে হয়ে থাকে। জমিতে পর্যাপ্ত পটাশ সার ব্যবহার করতে হবে।)",
+                            "relevance_score": 0.39,
+                            "crop": "Rice",
+                            "disease": "general"
+                        }
+                    ]
+                },
+                "advisor": {
+                    "raw_transcript": "Please provide standard diagnosis and recommendation.",
+                    "corrected_bangla": "Please provide standard diagnosis and recommendation.",
+                    "english_translation": "General crop leaf issue query.",
+                    "crop": "unknown",
+                    "symptoms": [
+                        "unknown spot"
+                    ],
+                    "severity": "medium",
+                    "urgency": "normal",
+                    "weather_factors_used": [
+                        "Default weather values used."
+                    ],
+                    "diagnosis_title": "অনির্ণীত শস্য সমস্যা",
+                    "likely_problem": "General agricultural stress",
+                    "confidence_score": 0.79,
+                    "risk_level": "medium",
+                    "bangla_recommendation": "কৃষক ভাই, আপনার শস্যের সমস্যাটি সুনির্দিষ্টভাবে নির্ণয় করা সম্ভব হয়নি। অনুগ্রহ করে জমিতে অতিরিক্ত ইউরিয়া ছিটানো বন্ধ রাখুন, নিষ্কাশন ব্যবস্থা পরীক্ষা করুন এবং নিকটস্থ কৃষি কর্মকর্তার সাথে যোগাযোগ করুন। সঠিক কীটনাশকের মাত্রার জন্য পরামর্শ নিন।",
+                    "english_summary": "Unresolved crop problem. Recommended balanced water management and consultation with local block supervisors.",
+                    "immediate_actions": [
+                        "জমির পানি নিষ্কাশন ব্যবস্থা উন্নত করুন।",
+                        "কৃষি কর্মকর্তার পরামর্শ নিন।"
+                    ],
+                    "what_to_avoid": [
+                        "অতিরিক্ত রাসায়নিক স্প্রে করা থেকে বিরত থাকুন।"
+                    ],
+                    "human_review_required": true,
+                    "human_review_reasons": [
+                        "unsupported_crop_or_symptom_complexity",
+                        "low_confidence_score"
+                    ],
+                    "uncertainty_explanation": "লক্ষণগুলো অস্পষ্ট হওয়ায় এআই সুনির্দিষ্ট পরামর্শ দিতে পারেনি।",
+                    "source_documents_used": [],
+                    "reasoning_summary_for_judges": "Default fallback triggered due to missing keyword match.",
+                    "seasonal_context": {
+                        "crop_season": "Kharif-I (Summer / খরিপ-১)",
+                        "regional_disease_risks": [
+                            "Stem Rot of Jute (পাটের কাণ্ড পচা)"
+                        ],
+                        "rainfall_threats": [
+                            "Heat stress and drought (তীব্র গরম ও অনাবৃষ্টির ঝুঁকি)"
+                        ],
+                        "seasonal_pests": [
+                            "Jute Hairy Caterpillar (পাটের বিছা পোকা)",
+                            "Yellow Mite (হলুদ মাকড়)"
+                        ]
+                    }
+                },
+                "confidence": {
+                    "asr_score": 1.0,
+                    "intent_score": 1.0,
+                    "rag_score": 0.48,
+                    "weather_score": 1.0,
+                    "system_confidence_score": 0.79
+                },
+                "badge": {
+                    "badge_type": "warning",
+                    "label": "Human Agronomist Review Recommended",
+                    "css_class": "badge-warning",
+                    "description": "Linguistic patterns or RAG index bounds returned high uncertainty scores. Review recommended."
+                },
+                "district": "Dhaka",
+                "audio_metadata": {},
+                "timestamp": "2026-06-25T08:51:20.508945",
+                "metrics": {
+                    "stt_latency_ms": 0,
+                    "correction_latency_ms": 0,
+                    "intent_latency_ms": 0,
+                    "weather_latency_ms": 671,
+                    "rag_latency_ms": 285,
+                    "advisor_latency_ms": 0,
+                    "tts_latency_ms": 1135,
+                    "total_latency_ms": 2093,
+                    "input_token_count": 526,
+                    "output_token_count": 60,
+                    "retrieved_doc_count": 3
+                }
+            }
+        ],
+        "raw_transcript": "Rice blast",
+        "asr_corrected": {
+            "id": "rice_blast",
+            "title": "Rice Blast (ধানের ব্লাস্ট রোগ)",
+            "farmer_complaint": "ধান গাছের গিট পচে ভেঙে যাচ্ছে আর পাতা পুড়ে যাচ্ছে",
+            "raw_transcript": "ধান গাছের গিট পচে ভেঙে যাচ্ছে আর পাতা পুড়ে যাচ্ছে",
+            "corrected_bangla": "ধান গাছের গিট পচে ভেঙে যাচ্ছে এবং পাতা পুড়ে যাচ্ছে",
+            "english_translation": "Rice plant nodes are rotting, breaking, and leaves are drying up like fire.",
+            "crop": "rice",
+            "symptoms": [
+                "node rot",
+                "leaf drying",
+                "neck rot"
+            ],
+            "severity": "high",
+            "urgency": "urgent",
+            "weather": {
+                "location_name": "Sylhet Demo Farm",
+                "temperature_c": 28.5,
+                "humidity_percent": 90.0,
+                "rain_probability": 80.0,
+                "forecast_summary": "Continuous rain and warm conditions forecast.",
+                "weather_risk_factors": [
+                    "Over 90% humidity is highly critical for neck blast propagation."
+                ]
+            },
+            "diagnosis_title": "ধানের নেক ব্লাস্ট ও গিট ব্লাস্ট (Neck & Node Blast)",
+            "likely_problem": "Fungal infection caused by Magnaporthe oryzae",
+            "confidence_score": 0.92,
+            "risk_level": "high",
+            "bangla_recommendation": "কৃষক ভাই, এটি ধানের মারাত্মক নেক বা গিট ব্লাস্ট রোগ। অতি দ্রুত ব্যবস্থা না নিলে ফসল সম্পূর্ণ নষ্ট হতে পারে। প্রতিকারের জন্য জমিতে ট্রাইসাইক্লাজল ৭২ ডব্লিউপি (যেমন: ট্রুপার) প্রতি লিটার পানিতে ০.৭৫ গ্রাম অথবা টেবুকোনাজল+ট্রাইফ্লক্সিস্ট্রবিন (যেমন: নাটিভো ৭৫ ডব্লিউজি) প্রতি লিটার পানিতে ০.৬ গ্রাম মিশিয়ে ১০ দিন পর পর ২ বার স্প্রে করুন। বিকেল বেলা স্প্রে করবেন। জমিতে পর্যাপ্ত পানি ধরে রাখুন এবং এই অবস্থায় জমিতে অতিরিক্ত ইউরিয়া সার দেওয়া বন্ধ রাখুন। সঠিক মাত্রার জন্য কৃষি কর্মকর্তার পরামর্শ নিন।",
+            "english_summary": "Diagnosed with severe Neck/Node Blast. Spreads rapidly under wet/warm conditions. Highly urgent action required. Spray systemic fungicides immediately and suspend nitrogen fertilizers.",
+            "immediate_actions": [
+                "জমিতে নাইট্রোজেন বা ইউরিয়া সার দেওয়া সম্পূর্ণ বন্ধ রাখুন।",
+                "জমিতে পানি ধরে রাখুন এবং আর্দ্রতা বজায় রাখুন।",
+                "অতি দ্রুত নাটিভো বা ট্রুপার জাতীয় ছত্রাকনাশক স্প্রে করুন।"
+            ],
+            "what_to_avoid": [
+                "আক্রান্ত জমিতে ইউরিয়া সার স্প্রে বা ছিটানো বন্ধ করুন।",
+                "দিনের প্রখর রোদে স্প্রে করা এড়িয়ে চলুন, বিকেলে স্প্রে করুন।"
+            ],
+            "human_review_required": true,
+            "human_review_reasons": [
+                "chemical_dosage_pesticide_imminent",
+                "high_severity_crop_destruction_risk"
+            ],
+            "uncertainty_explanation": "যেহেতু এটি একটি মারাত্মক রাসায়নিক ছত্রাকনাশক নির্দেশ করে, তাই কৃষি কর্মকর্তার সরাসরি মতামত নেওয়া আবশ্যক।",
+            "source_documents_used": [
+                "brri_blast_management_guide.txt"
+            ],
+            "weather_factors_used": [
+                "High humidity (90%) and rain forecasts accelerate pathogen spreading."
+            ],
+            "detected_language_style": "unknown",
+            "asr_uncertainty_notes": [],
+            "affected_parts": [],
+            "location_text": "unknown",
+            "farmer_intent": "unknown",
+            "suspected_problem_type": "unknown",
+            "human_review_triggered": false
+        },
+        "intent": {
+            "id": "rice_blast",
+            "title": "Rice Blast (ধানের ব্লাস্ট রোগ)",
+            "farmer_complaint": "ধান গাছের গিট পচে ভেঙে যাচ্ছে আর পাতা পুড়ে যাচ্ছে",
+            "raw_transcript": "ধান গাছের গিট পচে ভেঙে যাচ্ছে আর পাতা পুড়ে যাচ্ছে",
+            "corrected_bangla": "ধান গাছের গিট পচে ভেঙে যাচ্ছে এবং পাতা পুড়ে যাচ্ছে",
+            "english_translation": "Rice plant nodes are rotting, breaking, and leaves are drying up like fire.",
+            "crop": "rice",
+            "symptoms": [
+                "node rot",
+                "leaf drying",
+                "neck rot"
+            ],
+            "severity": "high",
+            "urgency": "urgent",
+            "weather": {
+                "location_name": "Sylhet Demo Farm",
+                "temperature_c": 28.5,
+                "humidity_percent": 90.0,
+                "rain_probability": 80.0,
+                "forecast_summary": "Continuous rain and warm conditions forecast.",
+                "weather_risk_factors": [
+                    "Over 90% humidity is highly critical for neck blast propagation."
+                ]
+            },
+            "diagnosis_title": "ধানের নেক ব্লাস্ট ও গিট ব্লাস্ট (Neck & Node Blast)",
+            "likely_problem": "Fungal infection caused by Magnaporthe oryzae",
+            "confidence_score": 0.92,
+            "risk_level": "high",
+            "bangla_recommendation": "কৃষক ভাই, এটি ধানের মারাত্মক নেক বা গিট ব্লাস্ট রোগ। অতি দ্রুত ব্যবস্থা না নিলে ফসল সম্পূর্ণ নষ্ট হতে পারে। প্রতিকারের জন্য জমিতে ট্রাইসাইক্লাজল ৭২ ডব্লিউপি (যেমন: ট্রুপার) প্রতি লিটার পানিতে ০.৭৫ গ্রাম অথবা টেবুকোনাজল+ট্রাইফ্লক্সিস্ট্রবিন (যেমন: নাটিভো ৭৫ ডব্লিউজি) প্রতি লিটার পানিতে ০.৬ গ্রাম মিশিয়ে ১০ দিন পর পর ২ বার স্প্রে করুন। বিকেল বেলা স্প্রে করবেন। জমিতে পর্যাপ্ত পানি ধরে রাখুন এবং এই অবস্থায় জমিতে অতিরিক্ত ইউরিয়া সার দেওয়া বন্ধ রাখুন। সঠিক মাত্রার জন্য কৃষি কর্মকর্তার পরামর্শ নিন।",
+            "english_summary": "Diagnosed with severe Neck/Node Blast. Spreads rapidly under wet/warm conditions. Highly urgent action required. Spray systemic fungicides immediately and suspend nitrogen fertilizers.",
+            "immediate_actions": [
+                "জমিতে নাইট্রোজেন বা ইউরিয়া সার দেওয়া সম্পূর্ণ বন্ধ রাখুন।",
+                "জমিতে পানি ধরে রাখুন এবং আর্দ্রতা বজায় রাখুন।",
+                "অতি দ্রুত নাটিভো বা ট্রুপার জাতীয় ছত্রাকনাশক স্প্রে করুন।"
+            ],
+            "what_to_avoid": [
+                "আক্রান্ত জমিতে ইউরিয়া সার স্প্রে বা ছিটানো বন্ধ করুন।",
+                "দিনের প্রখর রোদে স্প্রে করা এড়িয়ে চলুন, বিকেলে স্প্রে করুন।"
+            ],
+            "human_review_required": true,
+            "human_review_reasons": [
+                "chemical_dosage_pesticide_imminent",
+                "high_severity_crop_destruction_risk"
+            ],
+            "uncertainty_explanation": "যেহেতু এটি একটি মারাত্মক রাসায়নিক ছত্রাকনাশক নির্দেশ করে, তাই কৃষি কর্মকর্তার সরাসরি মতামত নেওয়া আবশ্যক।",
+            "source_documents_used": [
+                "brri_blast_management_guide.txt"
+            ],
+            "weather_factors_used": [
+                "High humidity (90%) and rain forecasts accelerate pathogen spreading."
+            ],
+            "detected_language_style": "unknown",
+            "asr_uncertainty_notes": [],
+            "affected_parts": [],
+            "location_text": "unknown",
+            "farmer_intent": "unknown",
+            "suspected_problem_type": "unknown",
+            "human_review_triggered": false
+        },
+        "weather": {
+            "temp": 35.8,
+            "humidity": 53,
+            "rainfall": 0.0,
+            "wind_speed": 8.0,
+            "description": "Thunderstorm",
+            "forecast": [
+                "Day 1 (2026-06-25): 26.2C to 35.6C, Rain: 3.2mm",
+                "Day 2 (2026-06-26): 26.5C to 33.7C, Rain: 1.7mm",
+                "Day 3 (2026-06-27): 27.1C to 33.9C, Rain: 3.8mm"
+            ],
+            "raw_data": {
+                "latitude": 23.796133,
+                "longitude": 90.38055,
+                "generationtime_ms": 0.32770633697509766,
+                "utc_offset_seconds": 21600,
+                "timezone": "Asia/Dhaka",
+                "timezone_abbreviation": "GMT+6",
+                "elevation": 19.0,
+                "current_units": {
+                    "time": "iso8601",
+                    "interval": "seconds",
+                    "temperature_2m": "°C",
+                    "relative_humidity_2m": "%",
+                    "rain": "mm",
+                    "wind_speed_10m": "km/h",
+                    "weather_code": "wmo code"
+                },
+                "current": {
+                    "time": "2026-06-25T14:45",
+                    "interval": 900,
+                    "temperature_2m": 35.8,
+                    "relative_humidity_2m": 53,
+                    "rain": 0.0,
+                    "wind_speed_10m": 8.0,
+                    "weather_code": 95
+                },
+                "daily_units": {
+                    "time": "iso8601",
+                    "weather_code": "wmo code",
+                    "temperature_2m_max": "°C",
+                    "temperature_2m_min": "°C",
+                    "rain_sum": "mm"
+                },
+                "daily": {
+                    "time": [
+                        "2026-06-25",
+                        "2026-06-26",
+                        "2026-06-27",
+                        "2026-06-28",
+                        "2026-06-29",
+                        "2026-06-30",
+                        "2026-07-01"
+                    ],
+                    "weather_code": [
+                        99,
+                        95,
+                        99,
+                        96,
+                        96,
+                        95,
+                        96
+                    ],
+                    "temperature_2m_max": [
+                        35.6,
+                        33.7,
+                        33.9,
+                        33.1,
+                        31.8,
+                        30.5,
+                        31.9
+                    ],
+                    "temperature_2m_min": [
+                        26.2,
+                        26.5,
+                        27.1,
+                        26.7,
+                        26.9,
+                        26.9,
+                        26.3
+                    ],
+                    "rain_sum": [
+                        3.2,
+                        1.7,
+                        3.8,
+                        1.5,
+                        4.1,
+                        4.7,
+                        4.1
+                    ]
+                }
+            },
+            "resolved_district": "Dhaka"
+        },
+        "rag": {
+            "retrieved_chunks": [
+                {
+                    "source_name": "Unknown Source",
+                    "page_number": 1,
+                    "text": "Rice Blast disease is caused by the fungus Magnaporthe oryzae (Pyricularia oryzae). Symptoms include spindle-shaped spots on leaves with gray centers and brown borders (leaf blast), or rotting nodes/collars (node blast). Warm nights (25-28C) combined with high relative humidity (above 90%) and morning dew accelerate fungal germination. Excess nitrogen fertilizer increases vulnerability. Control measures: Avoid excess urea. Keep the field flooded to inhibit spore spread. Spray fungicides like Tricyclazole (e.g., Trooper/Troja) at recommended levels or use organic solutions like neem seed kernel extract. (ধানের ব্লাস্ট রোগ প্রতিরোধে অতিরিক্ত ইউরিয়া সার ব্যবহার পরিহার করতে হবে। জমিতে পানির পরিমাণ বজায় রাখতে হবে। ট্রাইসাইক্লাজোল গ্রুপের ছত্রাকনাশক ব্যবহার করা যেতে পারে।)",
+                    "relevance_score": 0.48,
+                    "crop": "Rice",
+                    "disease": "general"
+                },
+                {
+                    "source_name": "Unknown Source",
+                    "page_number": 1,
+                    "text": "Rice Tungro Disease is a viral infection transmitted by the Green Leafhopper (Nephotettix virescens). Symptoms include stunting of rice plants, yellowing or orange discoloration of leaves starting from the tips, and reduced tillering. The virus cannot be treated directly. Control consists of managing the green leafhopper vector. Uproot and burn infected plants early. Apply balanced nitrogen fertilizer. Spray insecticidal soap or neem oil to suppress leafhopper populations, or use chemicals like MIPC/Imidacloprid if populations exceed threshold levels. (টুংরো রোগ মূলত সবুজ পাতা ফড়িং দ্বারা ছড়ায়। আক্রান্ত গাছ তুলে ধ্বংস করতে হবে এবং পাতা ফড়িং দমনের ব্যবস্থা নিতে হবে।)",
+                    "relevance_score": 0.45,
+                    "crop": "Rice",
+                    "disease": "general"
+                },
+                {
+                    "source_name": "Unknown Source",
+                    "page_number": 1,
+                    "text": "Rice Brown Spot is caused by the fungus Bipolaris oryzae. Symptoms: Small, oval, dark brown spots on the leaves resembling sesame seeds. This disease usually infects nutrient-deficient, poorly drained soils, particularly where potassium/potash is low. High temperature and high humidity favor growth. Control: Apply balanced fertilizer with recommended doses of Muriate of Potash (MOP) or organic compost. Improve soil health. In severe cases, spray fungicides containing Mancozeb or Carbendazim. (ধানের বাদামী দাগ রোগ সাধারণত পটাশ সারের ঘাটতির কারণে হয়ে থাকে। জমিতে পর্যাপ্ত পটাশ সার ব্যবহার করতে হবে।)",
+                    "relevance_score": 0.39,
+                    "crop": "Rice",
+                    "disease": "general"
+                }
+            ]
+        },
+        "advisor": {
+            "raw_transcript": "Please provide standard diagnosis and recommendation.",
+            "corrected_bangla": "Please provide standard diagnosis and recommendation.",
+            "english_translation": "General crop leaf issue query.",
+            "crop": "unknown",
+            "symptoms": [
+                "unknown spot"
+            ],
+            "severity": "medium",
+            "urgency": "normal",
+            "weather_factors_used": [
+                "Default weather values used."
+            ],
+            "diagnosis_title": "অনির্ণীত শস্য সমস্যা",
+            "likely_problem": "General agricultural stress",
+            "confidence_score": 0.79,
+            "risk_level": "medium",
+            "bangla_recommendation": "কৃষক ভাই, আপনার শস্যের সমস্যাটি সুনির্দিষ্টভাবে নির্ণয় করা সম্ভব হয়নি। অনুগ্রহ করে জমিতে অতিরিক্ত ইউরিয়া ছিটানো বন্ধ রাখুন, নিষ্কাশন ব্যবস্থা পরীক্ষা করুন এবং নিকটস্থ কৃষি কর্মকর্তার সাথে যোগাযোগ করুন। সঠিক কীটনাশকের মাত্রার জন্য পরামর্শ নিন।",
+            "english_summary": "Unresolved crop problem. Recommended balanced water management and consultation with local block supervisors.",
+            "immediate_actions": [
+                "জমির পানি নিষ্কাশন ব্যবস্থা উন্নত করুন।",
+                "কৃষি কর্মকর্তার পরামর্শ নিন।"
+            ],
+            "what_to_avoid": [
+                "অতিরিক্ত রাসায়নিক স্প্রে করা থেকে বিরত থাকুন।"
+            ],
+            "human_review_required": true,
+            "human_review_reasons": [
+                "unsupported_crop_or_symptom_complexity",
+                "low_confidence_score"
+            ],
+            "uncertainty_explanation": "লক্ষণগুলো অস্পষ্ট হওয়ায় এআই সুনির্দিষ্ট পরামর্শ দিতে পারেনি।",
+            "source_documents_used": [],
+            "reasoning_summary_for_judges": "Default fallback triggered due to missing keyword match.",
+            "seasonal_context": {
+                "crop_season": "Kharif-I (Summer / খরিপ-১)",
+                "regional_disease_risks": [
+                    "Stem Rot of Jute (পাটের কাণ্ড পচা)"
+                ],
+                "rainfall_threats": [
+                    "Heat stress and drought (তীব্র গরম ও অনাবৃষ্টির ঝুঁকি)"
+                ],
+                "seasonal_pests": [
+                    "Jute Hairy Caterpillar (পাটের বিছা পোকা)",
+                    "Yellow Mite (হলুদ মাকড়)"
+                ]
+            }
+        },
+        "confidence": {
+            "asr_score": 1.0,
+            "intent_score": 1.0,
+            "rag_score": 0.48,
+            "weather_score": 1.0,
+            "system_confidence_score": 0.79
+        },
+        "badge": {
+            "badge_type": "warning",
+            "label": "Human Agronomist Review Recommended",
+            "css_class": "badge-warning",
+            "description": "Linguistic patterns or RAG index bounds returned high uncertainty scores. Review recommended."
+        },
+        "district": "Dhaka",
+        "audio_metadata": {},
+        "timestamp": "2026-06-25T08:51:20.508945",
+        "metrics": {
+            "stt_latency_ms": 0,
+            "correction_latency_ms": 0,
+            "intent_latency_ms": 0,
+            "weather_latency_ms": 671,
+            "rag_latency_ms": 285,
+            "advisor_latency_ms": 0,
+            "tts_latency_ms": 1135,
+            "total_latency_ms": 2093,
+            "input_token_count": 526,
+            "output_token_count": 60,
+            "retrieved_doc_count": 3
+        }
+    }
+}

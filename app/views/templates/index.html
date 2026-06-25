@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KrishiKantho AI - ভয়েস-ভিত্তিক কৃষি পরামর্শক</title>
+    
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="কৃষিকণ্ঠ এআই - বাংলাদেশী কৃষকদের জন্য একটি আধুনিক ভয়েস-ভিত্তিক কৃষি পরামর্শক প্ল্যাটফর্ম। প্রাকৃতিকভাবে বাংলায় কথা বলুন এবং তাৎক্ষণিক সমাধান পান।">
+    
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <span class="logo-icon">🌾</span>
+            <div class="logo-text">
+                <h1>KrishiKantho AI</h1>
+                <span>AgriTech Voice Platform</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="theme-toggle-btn" id="theme-toggle" title="ডার্ক/লাইট মোড পরিবর্তন করুন" aria-label="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="main-navigation" style="background: var(--card-bg); backdrop-filter: var(--glass-blur); border-bottom: 1px solid var(--border-color); display: flex; justify-content: center; gap: 2rem; padding: 0.75rem; position: sticky; top: 76px; z-index: 49; transition: background-color var(--transition-speed), border-color var(--transition-speed);">
+        <button id="nav-btn-dashboard" class="nav-link active-nav" style="background: none; border: none; font-size: 1rem; font-weight: 700; color: var(--primary-color); cursor: pointer; padding: 0.5rem 1rem; border-bottom: 3px solid var(--primary-color); display: flex; align-items: center; gap: 0.5rem; font-family: inherit;">
+            <i class="fa-solid fa-gauge-high"></i> Advisory Dashboard
+        </button>
+        <button id="nav-btn-knowledge" class="nav-link" style="background: none; border: none; font-size: 1rem; font-weight: 700; color: var(--text-secondary); cursor: pointer; padding: 0.5rem 1rem; border-bottom: 3px solid transparent; display: flex; align-items: center; gap: 0.5rem; font-family: inherit;">
+            <i class="fa-solid fa-database"></i> Knowledge Base
+        </button>
+        <button id="nav-btn-architecture" class="nav-link" style="background: none; border: none; font-size: 1rem; font-weight: 700; color: var(--text-secondary); cursor: pointer; padding: 0.5rem 1rem; border-bottom: 3px solid transparent; display: flex; align-items: center; gap: 0.5rem; font-family: inherit;">
+            <i class="fa-solid fa-circle-nodes"></i> System Architecture
+        </button>
+    </nav>
+
+    <!-- page-dashboard Wrapper -->
+    <div id="page-dashboard">
+
+        <!-- Hero Section -->
+        <section class="hero">
+
+        <h2>আপনার এআই কৃষি বিশেষজ্ঞ</h2>
+        <p>আপনার ফসলের সমস্যাটি নিজের কণ্ঠে বর্ণনা করুন এবং তাৎক্ষণিকভাবে বিশেষজ্ঞ পরামর্শ লাভ করুন।</p>
+        
+        <!-- Centered Floating Action Button for Voice Recording -->
+        <div class="mic-activation-wrapper" id="mic-container">
+            <button class="mic-btn-main" id="mic-btn" title="কথা বলা শুরু করতে ক্লিক করুন" aria-label="Start Recording">
+                <i class="fa-solid fa-microphone"></i>
+            </button>
+            <div class="mic-pulse-ring"></div>
+        </div>
+        <div class="mic-status-label" id="mic-status">কথা বলতে বোতামটি চাপুন</div>
+        
+        <!-- Waveform Animation -->
+        <div class="waveform-container" id="waveform">
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+        </div>
+    </section>
+
+    <!-- Competition Demo Section -->
+    <section class="demo-section card" style="max-width: 1400px; margin: 0 auto 2rem; padding: 1.5rem 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary-color); padding-bottom: 0.75rem; margin-bottom: 1rem;">
+            <h3 class="card-title" style="margin: 0; color: var(--primary-color);">
+                <i class="fa-solid fa-flask"></i> KrishiKantho AI - Competition Demo Mode
+            </h3>
+            <span class="badge badge-medium" style="background: rgba(46, 125, 50, 0.1); color: var(--primary-color);">PREMIUM DEMO</span>
+        </div>
+        
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
+            Press the button below to load a pre-recorded farmer dialect voice recording and run the complete AI agricultural advisory pipeline in real-time. Watch each computational layer execute with latency logging.
+        </p>
+
+        <div class="demo-controls" style="display: flex; gap: 1.5rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
+            <button id="run-competition-demo-btn" class="submit-text-btn" style="margin-top: 0; width: auto; padding: 0.85rem 2.5rem; font-size: 1.1rem; background: linear-gradient(135deg, #1b5e20, #2E7D32); box-shadow: 0 4px 15px rgba(46,125,50,0.3); border-radius: 12px; display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fa-solid fa-circle-play" style="font-size: 1.3rem;"></i> <strong>Run Competition Demo</strong>
+            </button>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <label for="demo-scenario-select" style="font-weight: 700; color: var(--text-primary);">Select Farmer Sample Case:</label>
+                <select id="demo-scenario-select" class="selector-field" style="max-width: 320px; border-radius: 10px; padding: 0.6rem;" aria-label="Demo Scenario Select">
+                    <option value="">loading scenarios...</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Real-time pipeline visualizer flow -->
+        <div id="pipeline-visualizer" class="pipeline-visualizer" style="display: none; background: rgba(46, 125, 50, 0.03); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; margin-top: 1rem;">
+            <h4 style="font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary);">
+                <i class="fa-solid fa-gears" style="color: var(--secondary-color);"></i> Pipeline Process Flow In-Action (15s Simulation)
+            </h4>
+            
+            <div class="pipeline-steps-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; position: relative;">
+                <!-- Step 1 -->
+                <div class="pipeline-step" id="step-stt" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 0.85rem; text-align: center; opacity: 0.4; transition: all 0.3s;">
+                    <i class="fa-solid fa-microphone-lines" style="font-size: 1.4rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
+                    <h5 style="font-weight: 700; font-size: 0.85rem;">Farmer Voice</h5>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">STT Transcription</p>
+                    <div class="step-status" style="font-size: 0.75rem; font-weight: 700; margin-top: 0.5rem; color: var(--text-secondary);">Waiting</div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="pipeline-step" id="step-correct" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 0.85rem; text-align: center; opacity: 0.4; transition: all 0.3s;">
+                    <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 1.4rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
+                    <h5 style="font-weight: 700; font-size: 0.85rem;">AI Correction</h5>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Linguistic Dialect</p>
+                    <div class="step-status" style="font-size: 0.75rem; font-weight: 700; margin-top: 0.5rem; color: var(--text-secondary);">Waiting</div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="pipeline-step" id="step-weather" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 0.85rem; text-align: center; opacity: 0.4; transition: all 0.3s;">
+                    <i class="fa-solid fa-cloud-sun-rain" style="font-size: 1.4rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
+                    <h5 style="font-weight: 700; font-size: 0.85rem;">Weather Lookup</h5>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">District Constraints</p>
+                    <div class="step-status" style="font-size: 0.75rem; font-weight: 700; margin-top: 0.5rem; color: var(--text-secondary);">Waiting</div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="pipeline-step" id="step-rag" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 0.85rem; text-align: center; opacity: 0.4; transition: all 0.3s;">
+                    <i class="fa-solid fa-book-open" style="font-size: 1.4rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
+                    <h5 style="font-weight: 700; font-size: 0.85rem;">Knowledge Base</h5>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">BRRI/BARC RAG</p>
+                    <div class="step-status" style="font-size: 0.75rem; font-weight: 700; margin-top: 0.5rem; color: var(--text-secondary);">Waiting</div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="pipeline-step" id="step-diag" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 0.85rem; text-align: center; opacity: 0.4; transition: all 0.3s;">
+                    <i class="fa-solid fa-stethoscope" style="font-size: 1.4rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
+                    <h5 style="font-weight: 700; font-size: 0.85rem;">Diagnosis</h5>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Rubric Audits</p>
+                    <div class="step-status" style="font-size: 0.75rem; font-weight: 700; margin-top: 0.5rem; color: var(--text-secondary);">Waiting</div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="pipeline-step" id="step-advisor" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 0.85rem; text-align: center; opacity: 0.4; transition: all 0.3s;">
+                    <i class="fa-solid fa-wheat-awn" style="font-size: 1.4rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
+                    <h5 style="font-weight: 700; font-size: 0.85rem;">Advisor Advice</h5>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Recommendation</p>
+                    <div class="step-status" style="font-size: 0.75rem; font-weight: 700; margin-top: 0.5rem; color: var(--text-secondary);">Waiting</div>
+                </div>
+
+                <!-- Step 7 -->
+                <div class="pipeline-step" id="step-tts" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 0.85rem; text-align: center; opacity: 0.4; transition: all 0.3s;">
+                    <i class="fa-solid fa-volume-high" style="font-size: 1.4rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
+                    <h5 style="font-weight: 700; font-size: 0.85rem;">Voice Response</h5>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Bangla Speech</p>
+                    <div class="step-status" style="font-size: 0.75rem; font-weight: 700; margin-top: 0.5rem; color: var(--text-secondary);">Waiting</div>
+                </div>
+            </div>
+            
+            <div id="pipeline-audio-preview" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 1rem; text-align: center;">
+                <div style="font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--text-primary);">
+                    🔊 Playing loaded dialect input sample: <em id="demo-loaded-dialect-phrase" style="color: var(--primary-color);"></em>
+                </div>
+                <audio id="demo-farmer-voice-player" controls style="max-width: 400px; height: 32px;"></audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard-grid">
+        
+        <!-- CARD 1: Voice & Text Input -->
+        <section class="card col-input" id="input-card">
+            <h3 class="card-title">
+                <i class="fa-solid fa-microphone-lines"></i> ভয়েস ইনপুট ও অডিও আপলোড
+            </h3>
+            
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">আপনি সরাসরি মাইক্রোফোন দিয়ে রেকর্ড করতে পারেন অথবা আগে রেকর্ড করা অডিও ফাইল আপলোড করতে পারেন।</p>
+            
+            <!-- Audio file upload area -->
+            <div class="upload-wrapper" id="upload-area">
+                <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                <h4 style="font-weight: 700; margin-bottom: 0.25rem;">অডিও ফাইল নির্বাচন করুন</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">সমর্থিত ফরম্যাট: mp3, wav, m4a, ogg</p>
+                <input type="file" id="audio-file-input" class="upload-input" accept=".mp3,.wav,.m4a,.ogg">
+            </div>
+            <div id="file-name-display" style="margin-top: 0.75rem; font-weight: 700; font-size: 0.85rem; text-align: center; color: var(--primary-color);"></div>
+
+            <!-- Fallback text query input -->
+            <div class="text-fallback-wrapper">
+                <div class="text-fallback-title">অথবা প্রশ্নটি টাইপ করুন (পরীক্ষার জন্য):</div>
+                <input type="text" id="text-query-input" class="query-input-field" placeholder="যেমন: আমার ধানের পাতায় বাদামী দাগ পড়েছে...">
+                <button id="submit-text-btn" class="submit-text-btn">জমা দিন</button>
+            </div>
+        </section>
+
+        <!-- CARD 2: Farm Context -->
+        <section class="card col-context" id="context-card">
+            <h3 class="card-title">
+                <i class="fa-solid fa-cloud-sun-rain"></i> ফার্মের অবস্থান ও আবহাওয়া
+            </h3>
+            
+            <div class="context-grid">
+                <!-- Location Info -->
+                <div class="stat-item">
+                    <div class="stat-label">বর্তমান অবস্থান</div>
+                    <div class="stat-value" id="location-display">ঢাকা</div>
+                    <div class="stat-sub" id="coordinates-display">ল্যাটিটিউড: ২৩.৮১, লঙ্গিটিউড: ৯০.৪১</div>
+                </div>
+                
+                <!-- Weather Details -->
+                <div class="stat-item">
+                    <div class="stat-label">আবহাওয়া পরিস্থিতি</div>
+                    <div class="stat-value" id="temp-display">৩০.২°C</div>
+                    <div class="stat-sub" id="weather-desc-display">মেঘলা আকাশ, আদ্রতা: ৭২%</div>
+                </div>
+
+                <!-- Climate Forecasts -->
+                <div class="stat-item" style="grid-column: span 2;">
+                    <div class="stat-label">কৃষি আবহাওয়া পূর্বাভাস (৩ দিন)</div>
+                    <div id="forecast-display" style="margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.9rem; font-weight: 600;">
+                        <div>দিন ১: ৩১°C - আংশিক মেঘলা</div>
+                        <div>দিন ২: ৩২°C - হালকা বৃষ্টিপাত</div>
+                        <div>দিন ৩: ২৯°C - ভারী বজ্রঝড়</div>
+                    </div>
+                </div>
+
+                <!-- District manual override -->
+                <div class="stat-item district-selector">
+                    <div class="stat-label" style="margin-bottom: 0.5rem;">আপনার জেলা পরিবর্তন করুন</div>
+                    <select id="district-select" class="selector-field" aria-label="District selector">
+                        <option value="dhaka">ঢাকা (Dhaka)</option>
+                        <option value="mymensingh" selected>ময়মনসিংহ (Mymensingh)</option>
+                        <option value="sylhet">সিলেট (Sylhet)</option>
+                        <option value="rajshahi">রাজশাহী (Rajshahi)</option>
+                        <option value="rangpur">রংপুর (Rangpur)</option>
+                        <option value="jessore">যশোর (Jessore)</option>
+                        <option value="barisal">বরিশাল (Barisal)</option>
+                        <option value="chittagong">চট্টগ্রাম (Chittagong)</option>
+                        <option value="dinajpur">দিনাজপুর (Dinajpur)</option>
+                        <option value="bogra">বগুড়া (Bogra)</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARD 3: AI Diagnosis -->
+        <section class="card col-diagnosis" id="diagnosis-card">
+            <h3 class="card-title">
+                <i class="fa-solid fa-stethoscope"></i> ফসলের কৃত্রিম বুদ্ধিমত্তা নির্ণয়
+            </h3>
+            
+            <div class="diagnosis-item">
+                <div class="diag-label">আক্রান্ত ফসল</div>
+                <div class="diag-val" id="diag-crop">ধান (Rice)</div>
+            </div>
+            
+            <div class="diagnosis-item">
+                <div class="diag-label">চিহ্নিত লক্ষণসমূহ</div>
+                <div class="diag-val" id="diag-symptoms" style="font-size: 0.95rem;">পাতায় ডিম্বাকৃতির গাঢ় বাদামী দাগ</div>
+            </div>
+            
+            <div class="diagnosis-item">
+                <div class="diag-label">আক্রমণের তীব্রতা</div>
+                <div class="diag-val">
+                    <span class="badge badge-medium" id="diag-severity">Medium</span>
+                </div>
+            </div>
+            
+            <div class="diagnosis-item">
+                <div class="diag-label">জরুরী অবস্থা</div>
+                <div class="diag-val">
+                    <span class="badge badge-medium" id="diag-urgency">Medium</span>
+                </div>
+            </div>
+
+            <div class="diagnosis-item">
+                <div class="diag-label">অডিট অবস্থা</div>
+                <div class="diag-val">
+                    <span class="badge" id="diag-audit-status">-</span>
+                </div>
+            </div>
+            
+            <div class="diagnosis-item" style="flex-direction: column; align-items: flex-start; gap: 0.25rem;">
+                <div style="display: flex; justify-content: space-between; width: 100%;">
+                    <div class="diag-label">এআই নির্ণয় নির্ভরযোগ্যতা</div>
+                    <div class="diag-val" id="diag-confidence">৮০%</div>
+                </div>
+                <div class="confidence-gauge-bar">
+                    <div class="confidence-fill" id="confidence-fill" style="width: 80%;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARD 4: Recommendation -->
+        <section class="card col-recommendation" id="recommendation-card">
+            <h3 class="card-title">
+                <i class="fa-solid fa-heart-pulse"></i> এআই কৃষি সমাধান ও পরামর্শ
+            </h3>
+            
+            <!-- Bangla response text -->
+            <div class="recommendation-text-box" id="rec-text-box">
+                পরামর্শ শুনতে নিচের প্লে বাটনে ক্লিক করুন। আপনার ফসলের যেকোনো সমস্যা সমাধানের সঠিক নির্দেশিকা এখানে প্রদর্শন করা হবে।
+            </div>
+            
+            <!-- Audio Playback panel -->
+            <div class="audio-controls-panel">
+                <button class="audio-btn" id="audio-play-pause" title="শুনুন" aria-label="Play/Pause">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                <div class="audio-progress-bar" id="audio-progress-container">
+                    <div class="audio-progress-fill" id="audio-progress-fill"></div>
+                </div>
+                <div class="audio-time-label" id="audio-time">00:00</div>
+                
+                <div class="audio-actions-right">
+                    <button class="mini-action-btn" id="copy-btn" title="পরামর্শটি কপি করুন" aria-label="Copy recommendation text">
+                        <i class="fa-solid fa-copy"></i>
+                    </button>
+                    <a class="mini-action-btn" id="download-audio-btn" title="অডিও ফাইলটি ডাউনলোড করুন" aria-label="Download audio file" target="_blank" style="display: none;">
+                        <i class="fa-solid fa-download"></i>
+                    </a>
+                    <a class="mini-action-btn" id="export-txt-btn" title="TXT রিপোর্ট ডাউনলোড করুন" aria-label="Download TXT Report" target="_blank" style="display: none;">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </a>
+                    <a class="mini-action-btn" id="export-json-btn" title="JSON ডেটা ডাউনলোড করুন" aria-label="Download JSON Data" target="_blank" style="display: none;">
+                        <i class="fa-solid fa-file-code"></i>
+                    </a>
+                </div>
+            </div>
+            <audio id="tts-audio-element" style="display: none;"></audio>
+        </section>
+
+        <!-- CARD 5: Judge Mode (Why This Recommendation?) -->
+        <section class="card col-judge" id="judge-card">
+            <div class="judge-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--secondary-color); padding-bottom: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <h3 style="margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem;">
+                    <i class="fa-solid fa-scale-balanced" style="color: var(--secondary-color);"></i> Judge & Developer Audit Center
+                </h3>
+                <div class="judge-tab-buttons" style="display: flex; gap: 0.5rem; background: rgba(46,125,50,0.05); padding: 0.25rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                    <button class="judge-tab-btn active" id="tab-audit-btn" style="background: var(--primary-color); color: white; border: none; padding: 0.5rem 1.25rem; border-radius: 9px; font-weight: 700; cursor: pointer; transition: all 0.2s;">
+                        <i class="fa-solid fa-circle-nodes"></i> Explain Recommendation
+                    </button>
+                    <button class="judge-tab-btn" id="tab-metrics-btn" style="background: transparent; color: var(--text-primary); border: none; padding: 0.5rem 1.25rem; border-radius: 9px; font-weight: 700; cursor: pointer; transition: all 0.2s;">
+                        <i class="fa-solid fa-chart-line"></i> Performance Dashboard (Metrics)
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Tab 1 Contents: AI Reasoning Summary -->
+            <div class="judge-grid" id="judge-audit-tab-content">
+                <!-- Weather Factors Used -->
+                <div class="judge-block">
+                    <div class="judge-label">Weather Factors Analyzed</div>
+                    <div class="judge-content" id="judge-weather-factors">
+                        High ambient temperature (29.5°C) combined with excessive humidity (82%) provides a highly active incubator environment for rice blast spores to germinate. Keep field flooded.
+                    </div>
+                </div>
+                
+                <!-- Retrieved Knowledge Base Chunk -->
+                <div class="judge-block">
+                    <div class="judge-label">Retrieved Documents (RAG)</div>
+                    <div class="judge-content">
+                        <ul class="judge-list" id="judge-rag-sources">
+                            <li>BRRI Rice Blast Guide 2025: "Avoid excess urea. Spray Tricyclazole or use neem kernel extract."</li>
+                            <li>Bangladesh Rice Research Institute (BRRI) Disease Sheet</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- AI Reasoning Summary -->
+                <div class="judge-block">
+                    <div class="judge-label">ASR Corrections & AI Confidence Logic</div>
+                    <div class="judge-content" id="judge-reasoning">
+                        <strong>ASR Original:</strong> "আমার ধানের পাতায় বাদামী দাগ পড়েছে"<br>
+                        <strong>Linguistic Correction:</strong> Standardized dialetics.<br>
+                        <strong>AI Confidence:</strong> 0.85. The presence of spindle-shaped lesions and high humidity correlates directly with Rice Blast guidelines.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2 Contents: Performance Dashboard (Metrics) -->
+            <div id="judge-metrics-tab-content" style="display: none;">
+                <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                    <!-- Total execution latency -->
+                    <div class="metric-card" style="background: rgba(46, 125, 50, 0.04); border: 2px solid var(--primary-color); border-radius: 20px; padding: 1.5rem; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px;">
+                        <div class="metric-label" style="font-weight: 700; text-transform: uppercase; font-size: 0.85rem; color: var(--primary-color); margin-bottom: 0.5rem;">Total End-to-End Latency</div>
+                        <div class="metric-value-huge" id="metric-total-latency" style="font-size: 3rem; font-weight: 800; color: var(--text-primary); line-height: 1;">-- ms</div>
+                        <span class="badge" id="metric-latency-badge" style="margin-top: 0.75rem; background: rgba(46,125,50,0.15); color: var(--primary-color);">No execution</span>
+                    </div>
+
+                    <!-- Token details -->
+                    <div class="metric-card" style="background: rgba(249, 168, 37, 0.04); border: 1px dashed rgba(249, 168, 37, 0.4); border-radius: 20px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; gap: 0.75rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(249,168,37,0.2); padding-bottom: 0.4rem;">
+                            <span style="font-weight: 700; font-size: 0.85rem; color: var(--secondary-color);">INPUT TOKENS</span>
+                            <span id="metric-input-tokens" style="font-weight: 800; font-size: 1.2rem;">--</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(249,168,37,0.2); padding-bottom: 0.4rem;">
+                            <span style="font-weight: 700; font-size: 0.85rem; color: var(--secondary-color);">OUTPUT TOKENS</span>
+                            <span id="metric-output-tokens" style="font-weight: 800; font-size: 1.2rem;">--</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 700; font-size: 0.85rem; color: var(--secondary-color);">RAG RETRIEVED DOCS</span>
+                            <span id="metric-retrieved-docs" style="font-weight: 800; font-size: 1.2rem;">--</span>
+                        </div>
+                    </div>
+
+                    <!-- System resource status -->
+                    <div class="metric-card" style="background: rgba(25, 118, 210, 0.04); border: 1px dashed rgba(25, 118, 210, 0.4); border-radius: 20px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; gap: 0.5rem;">
+                        <div style="font-weight: 700; font-size: 0.85rem; color: var(--accent-blue); text-transform: uppercase;">Infrastructure Metrics</div>
+                        <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                            <strong>Model Size (Whisper):</strong> quantized HF (Q4_0)<br>
+                            <strong>LLM Engine:</strong> Gemini 1.5 Flash API Fallback<br>
+                            <strong>Knowledge Engine:</strong> Local Memory Vector Store<br>
+                            <strong>Audio Format:</strong> 16kHz Mono PCM WAV
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="font-weight: 700; color: var(--text-primary); margin-bottom: 1rem;"><i class="fa-solid fa-list-check" style="color: var(--primary-color);"></i> Stage-by-Stage Latency Breakdown</h4>
+                <div class="latency-bars-container" style="display: flex; flex-direction: column; gap: 1rem; background: rgba(0,0,0,0.02); padding: 1.5rem; border-radius: 16px; border: 1px solid var(--border-color);">
+                    <!-- Bar 1: STT -->
+                    <div class="latency-item-row" style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                        <span style="font-weight: 700; min-width: 180px; font-size: 0.9rem;"><i class="fa-solid fa-microphone-lines"></i> 1. Voice Ingestion & STT:</span>
+                        <div style="flex-grow: 1; height: 12px; background: rgba(46,125,50,0.1); border-radius: 99px; overflow: hidden; max-width: 600px;">
+                            <div id="bar-latency-stt" style="height: 100%; width: 0%; background: #4CAF50; border-radius: 99px; transition: width 0.8s ease-out;"></div>
+                        </div>
+                        <span id="label-latency-stt" style="font-weight: 800; font-size: 0.9rem; min-width: 80px;">-- ms</span>
+                    </div>
+
+                    <!-- Bar 2: Correction -->
+                    <div class="latency-item-row" style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                        <span style="font-weight: 700; min-width: 180px; font-size: 0.9rem;"><i class="fa-solid fa-wand-magic-sparkles"></i> 2. Dialect Correction:</span>
+                        <div style="flex-grow: 1; height: 12px; background: rgba(46,125,50,0.1); border-radius: 99px; overflow: hidden; max-width: 600px;">
+                            <div id="bar-latency-correction" style="height: 100%; width: 0%; background: #2E7D32; border-radius: 99px; transition: width 0.8s ease-out;"></div>
+                        </div>
+                        <span id="label-latency-correction" style="font-weight: 800; font-size: 0.9rem; min-width: 80px;">-- ms</span>
+                    </div>
+
+                    <!-- Bar 3: Weather -->
+                    <div class="latency-item-row" style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                        <span style="font-weight: 700; min-width: 180px; font-size: 0.9rem;"><i class="fa-solid fa-cloud-sun-rain"></i> 3. Weather Lookup:</span>
+                        <div style="flex-grow: 1; height: 12px; background: rgba(46,125,50,0.1); border-radius: 99px; overflow: hidden; max-width: 600px;">
+                            <div id="bar-latency-weather" style="height: 100%; width: 0%; background: #FBC02D; border-radius: 99px; transition: width 0.8s ease-out;"></div>
+                        </div>
+                        <span id="label-latency-weather" style="font-weight: 800; font-size: 0.9rem; min-width: 80px;">-- ms</span>
+                    </div>
+
+                    <!-- Bar 4: Intent -->
+                    <div class="latency-item-row" style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                        <span style="font-weight: 700; min-width: 180px; font-size: 0.9rem;"><i class="fa-solid fa-magnifying-glass-chart"></i> 4. Intent Analysis:</span>
+                        <div style="flex-grow: 1; height: 12px; background: rgba(46,125,50,0.1); border-radius: 99px; overflow: hidden; max-width: 600px;">
+                            <div id="bar-latency-intent" style="height: 100%; width: 0%; background: #0288D1; border-radius: 99px; transition: width 0.8s ease-out;"></div>
+                        </div>
+                        <span id="label-latency-intent" style="font-weight: 800; font-size: 0.9rem; min-width: 80px;">-- ms</span>
+                    </div>
+
+                    <!-- Bar 5: RAG -->
+                    <div class="latency-item-row" style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                        <span style="font-weight: 700; min-width: 180px; font-size: 0.9rem;"><i class="fa-solid fa-book-open"></i> 5. RAG Document Query:</span>
+                        <div style="flex-grow: 1; height: 12px; background: rgba(46,125,50,0.1); border-radius: 99px; overflow: hidden; max-width: 600px;">
+                            <div id="bar-latency-rag" style="height: 100%; width: 0%; background: #E65100; border-radius: 99px; transition: width 0.8s ease-out;"></div>
+                        </div>
+                        <span id="label-latency-rag" style="font-weight: 800; font-size: 0.9rem; min-width: 80px;">-- ms</span>
+                    </div>
+
+                    <!-- Bar 6: Advisor -->
+                    <div class="latency-item-row" style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                        <span style="font-weight: 700; min-width: 180px; font-size: 0.9rem;"><i class="fa-solid fa-wheat-awn"></i> 6. Recommendation Synthesis:</span>
+                        <div style="flex-grow: 1; height: 12px; background: rgba(46,125,50,0.1); border-radius: 99px; overflow: hidden; max-width: 600px;">
+                            <div id="bar-latency-advisor" style="height: 100%; width: 0%; background: #7B1FA2; border-radius: 99px; transition: width 0.8s ease-out;"></div>
+                        </div>
+                        <span id="label-latency-advisor" style="font-weight: 800; font-size: 0.9rem; min-width: 80px;">-- ms</span>
+                    </div>
+
+                    <!-- Bar 7: TTS -->
+                    <div class="latency-item-row" style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                        <span style="font-weight: 700; min-width: 180px; font-size: 0.9rem;"><i class="fa-solid fa-volume-high"></i> 7. Speech Audio Synthesis:</span>
+                        <div style="flex-grow: 1; height: 12px; background: rgba(46,125,50,0.1); border-radius: 99px; overflow: hidden; max-width: 600px;">
+                            <div id="bar-latency-tts" style="height: 100%; width: 0%; background: #C2185B; border-radius: 99px; transition: width 0.8s ease-out;"></div>
+                        </div>
+                        <span id="label-latency-tts" style="font-weight: 800; font-size: 0.9rem; min-width: 80px;">-- ms</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Conversation History -->
+    <section class="history-section">
+        <h3 class="history-title">
+            <i class="fa-solid fa-clock-rotate-left"></i> পূর্ববর্তী পরামর্শের ইতিহাস (Conversation Logs)
+        </h3>
+        <div class="history-list" id="history-container">
+            <!-- Dynamically populated -->
+            <div class="history-item">
+                <div class="history-left">
+                    <div class="history-crop-badge">Rice</div>
+                    <div class="history-details">
+                        <h4>ধানের পাতা হলুদ হয়ে যাওয়া</h4>
+                        <p><i class="fa-regular fa-calendar"></i> ২৫ জুন ২০২৬ • তীব্রতা: Medium • নির্ভরযোগ্যতা: ৮৫%</p>
+                    </div>
+                </div>
+                <div class="history-actions">
+                    <span style="font-weight: 700; color: var(--primary-color);">পরামর্শ দেখুন <i class="fa-solid fa-angle-right"></i></span>
+                    <button class="history-delete-btn" aria-label="Delete history item"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <!-- Knowledge Base Dashboard -->
+    <div id="page-knowledge" style="display: none; max-width: 1400px; margin: 2rem auto; padding: 0 1.5rem;">
+        <div style="background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--border-color); border-radius: 24px; padding: 2rem; box-shadow: var(--shadow-md); transition: background-color var(--transition-speed), border-color var(--transition-speed);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary-color); padding-bottom: 1rem; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--primary-color); display: flex; align-items: center; gap: 0.75rem; margin: 0;">
+                        <i class="fa-solid fa-database"></i> Knowledge Base Dashboard
+                    </h2>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.25rem; margin-bottom: 0;">Monitor RAG collections, document chunks, and model configuration.</p>
+                </div>
+                <button id="trigger-reingestion-btn" class="submit-text-btn" style="margin-top: 0; width: auto; padding: 0.8rem 2rem; font-size: 1rem; background: linear-gradient(135deg, #1b5e20, #2E7D32); border-radius: 12px; display: flex; align-items: center; gap: 0.5rem; font-weight: 700; box-shadow: 0 4px 12px rgba(46,125,50,0.2);">
+                    <i class="fa-solid fa-rotate"></i> Re-index Knowledge Base
+                </button>
+            </div>
+
+            <!-- Stats Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+                <div style="background: rgba(46, 125, 50, 0.03); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; text-align: center;">
+                    <div style="color: var(--text-secondary); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem;">Total Indexed Documents</div>
+                    <div id="kb-total-docs" style="font-size: 2.5rem; font-weight: 800; color: var(--primary-color);">4</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem;">Agricultural Manuals / Guides</div>
+                </div>
+                <div style="background: rgba(46, 125, 50, 0.03); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; text-align: center;">
+                    <div style="color: var(--text-secondary); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem;">Total Vector Chunks</div>
+                    <div id="kb-total-chunks" style="font-size: 2.5rem; font-weight: 800; color: var(--primary-color);">4</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem;">ChromaDB Vector Store Collection</div>
+                </div>
+                <div style="background: rgba(46, 125, 50, 0.03); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; text-align: center;">
+                    <div style="color: var(--text-secondary); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem;">Embedding Model</div>
+                    <div id="kb-embedding-model" style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin: 0.8rem 0;">sentence-transformers/all-MiniLM-L6-v2</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Dimensionality: 384 / Cosine</div>
+                </div>
+                <div style="background: rgba(46, 125, 50, 0.03); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; text-align: center;">
+                    <div style="color: var(--text-secondary); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.5rem;">Last Ingestion Timestamp</div>
+                    <div id="kb-last-ingestion" style="font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin: 0.8rem 0;">2026-06-25 10:15:30 UTC</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Automatic initialization seeding</div>
+                </div>
+            </div>
+
+            <!-- Knowledge Source Files Table -->
+            <h3 style="font-weight: 700; margin-bottom: 1rem; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem; margin-top: 0;">
+                <i class="fa-solid fa-folder-open" style="color: var(--secondary-color);"></i> Seeded Crop Knowledge Bases
+            </h3>
+            <div style="overflow-x: auto; background: rgba(0,0,0,0.02); border-radius: 16px; border: 1px solid var(--border-color); margin-bottom: 2.5rem;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--border-color); background: rgba(46,125,50,0.05);">
+                            <th style="padding: 1rem; font-weight: 700;">Document Title</th>
+                            <th style="padding: 1rem; font-weight: 700;">Crop Scope</th>
+                            <th style="padding: 1rem; font-weight: 700;">Disease focus</th>
+                            <th style="padding: 1rem; font-weight: 700;">Source File</th>
+                            <th style="padding: 1rem; font-weight: 700;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 1rem; font-weight: 600;">BRRI Rice Blast Management Guide</td>
+                            <td style="padding: 1rem;">Rice (ধান)</td>
+                            <td style="padding: 1rem;">Blast (ব্লাস্ট রোগ)</td>
+                            <td style="padding: 1rem; font-family: monospace;">brri_blast_management_guide.txt</td>
+                            <td style="padding: 1rem;"><span style="background: rgba(46,125,50,0.15); color: var(--primary-color); padding: 0.25rem 0.75rem; border-radius: 99px; font-weight: 700; font-size: 0.85rem;">Indexed</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 1rem; font-weight: 600;">BRRI Brown Leaf Spot Advisory</td>
+                            <td style="padding: 1rem;">Rice (ধান)</td>
+                            <td style="padding: 1rem;">Brown Leaf Spot (বাদামী দাগ)</td>
+                            <td style="padding: 1rem; font-family: monospace;">brri_brown_spot_guide.txt</td>
+                            <td style="padding: 1rem;"><span style="background: rgba(46,125,50,0.15); color: var(--primary-color); padding: 0.25rem 0.75rem; border-radius: 99px; font-weight: 700; font-size: 0.85rem;">Indexed</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 1rem; font-weight: 600;">BARI Tomato Management Manual</td>
+                            <td style="padding: 1rem;">Tomato (টমেটো)</td>
+                            <td style="padding: 1rem;">Leaf Curl Virus (পাতা কোঁকড়ানো)</td>
+                            <td style="padding: 1rem; font-family: monospace;">bari_tomato_guide.txt</td>
+                            <td style="padding: 1rem;"><span style="background: rgba(46,125,50,0.15); color: var(--primary-color); padding: 0.25rem 0.75rem; border-radius: 99px; font-weight: 700; font-size: 0.85rem;">Indexed</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem; font-weight: 600;">BJRI Jute Stem Rot Manual</td>
+                            <td style="padding: 1rem;">Jute (পাট)</td>
+                            <td style="padding: 1rem;">Stem Rot (কাণ্ড পচা রোগ)</td>
+                            <td style="padding: 1rem; font-family: monospace;">bjri_jute_disease_manual.txt</td>
+                            <td style="padding: 1rem;"><span style="background: rgba(46,125,50,0.15); color: var(--primary-color); padding: 0.25rem 0.75rem; border-radius: 99px; font-weight: 700; font-size: 0.85rem;">Indexed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- RAG Playground -->
+            <h3 style="font-weight: 700; margin-bottom: 1rem; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fa-solid fa-magnifying-glass-nodes" style="color: var(--accent-blue);"></i> Real-Time RAG Vector Store Playground
+            </h3>
+            <div style="background: rgba(46, 125, 50, 0.02); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem;">
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                    Test similarity matches directly against the indexed collections using standard query phrases.
+                </p>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                    <input type="text" id="rag-playground-query" class="query-input-field" style="flex-grow: 1; margin: 0; padding: 0.75rem 1rem; border-radius: 12px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-primary);" placeholder="Enter test query (e.g. Rice Blast)..." aria-label="RAG query input">
+                    <button id="rag-playground-test-btn" class="submit-text-btn" style="margin-top: 0; width: auto; padding: 0.8rem 2rem; border-radius: 12px; display: flex; align-items: center; gap: 0.5rem; font-weight: 700;">
+                        <i class="fa-solid fa-magnifying-glass"></i> Query Vector Store
+                    </button>
+                </div>
+                <div id="rag-playground-results" style="display: none; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; max-height: 400px; overflow-y: auto;">
+                    <!-- Dynamically populated RAG results -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Architecture Visualization Page -->
+    <div id="page-architecture" style="display: none; max-width: 1400px; margin: 2rem auto; padding: 0 1.5rem;">
+        <div style="background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--border-color); border-radius: 24px; padding: 2rem; box-shadow: var(--shadow-md); transition: background-color var(--transition-speed), border-color var(--transition-speed);">
+            <div style="border-bottom: 2px solid var(--primary-color); padding-bottom: 1rem; margin-bottom: 2rem;">
+                <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--primary-color); display: flex; align-items: center; gap: 0.75rem; margin: 0;">
+                    <i class="fa-solid fa-circle-nodes"></i> System Architecture & Pipeline Flow
+                </h2>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.25rem; margin-bottom: 0;">Deep dive into the KrishiKantho AI multi-agent audio diagnostic infrastructure.</p>
+            </div>
+
+            <!-- Pipeline Visual Flowchart (Horizontal Grid of Cards with Connection Indicators) -->
+            <h3 style="font-weight: 700; margin-bottom: 1.5rem; color: var(--text-primary); margin-top: 0;"><i class="fa-solid fa-diagram-project" style="color: var(--secondary-color);"></i> End-to-End Computational Pipeline</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <!-- Layer 1 -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <!-- Step 1 -->
+                    <div style="background: rgba(46, 125, 50, 0.02); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; position: relative;">
+                        <span style="position: absolute; right: 1.25rem; top: 1.25rem; background: var(--primary-color); color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800;">1</span>
+                        <h4 style="font-weight: 700; font-size: 1.1rem; color: var(--primary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; margin-top: 0;">
+                            <i class="fa-solid fa-microphone-lines"></i> Audio Ingestion
+                        </h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                            Accepts farmer's speech inputs via live microphone recording (WebRTC / MediaRecorder API) or pre-recorded audio files.
+                        </p>
+                        <div style="font-size: 0.8rem; background: rgba(0,0,0,0.03); padding: 0.5rem 0.75rem; border-radius: 8px; font-weight: 700; color: var(--text-primary); display: inline-block;">
+                            Tech: PCM WAV mono @ 16kHz
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div style="background: rgba(46, 125, 50, 0.02); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; position: relative;">
+                        <span style="position: absolute; right: 1.25rem; top: 1.25rem; background: var(--primary-color); color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800;">2</span>
+                        <h4 style="font-weight: 700; font-size: 1.1rem; color: var(--primary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; margin-top: 0;">
+                            <i class="fa-solid fa-language"></i> STT (Whisper ASR)
+                        </h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                            Transcribes regional dialects or standard Bangla audio speech inputs to textual Bengali. Incorporates model scale fallbacks.
+                        </p>
+                        <div style="font-size: 0.8rem; background: rgba(0,0,0,0.03); padding: 0.5rem 0.75rem; border-radius: 8px; font-weight: 700; color: var(--text-primary); display: inline-block;">
+                            Fallback: large-v3 → medium → small
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div style="background: rgba(46, 125, 50, 0.02); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; position: relative;">
+                        <span style="position: absolute; right: 1.25rem; top: 1.25rem; background: var(--primary-color); color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800;">3</span>
+                        <h4 style="font-weight: 700; font-size: 1.1rem; color: var(--primary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; margin-top: 0;">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> AI Text Correction
+                        </h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                            Cleans semantic ASR transcription mistakes, normalizes dialect variances, and produces standard English translation contexts.
+                        </p>
+                        <div style="font-size: 0.8rem; background: rgba(0,0,0,0.03); padding: 0.5rem 0.75rem; border-radius: 8px; font-weight: 700; color: var(--text-primary); display: inline-block;">
+                            Tech: LLM Correction & Repair
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer 2 -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <!-- Step 4 -->
+                    <div style="background: rgba(46, 125, 50, 0.02); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; position: relative;">
+                        <span style="position: absolute; right: 1.25rem; top: 1.25rem; background: var(--primary-color); color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800;">4</span>
+                        <h4 style="font-weight: 700; font-size: 1.1rem; color: var(--primary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; margin-top: 0;">
+                            <i class="fa-solid fa-cloud-sun-rain"></i> Weather Context
+                        </h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                            Fetches local environmental elements (humidity, temp, wind speed) from current coordinates or district indices.
+                        </p>
+                        <div style="font-size: 0.8rem; background: rgba(0,0,0,0.03); padding: 0.5rem 0.75rem; border-radius: 8px; font-weight: 700; color: var(--text-primary); display: inline-block;">
+                            Tech: Open-Meteo Weather APIs
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div style="background: rgba(46, 125, 50, 0.02); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; position: relative;">
+                        <span style="position: absolute; right: 1.25rem; top: 1.25rem; background: var(--primary-color); color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800;">5</span>
+                        <h4 style="font-weight: 700; font-size: 1.1rem; color: var(--primary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; margin-top: 0;">
+                            <i class="fa-solid fa-book-open"></i> BRRI/BARC RAG
+                        </h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                            Queries vector database matching crop type & symptom tags to extract highly accurate peer-reviewed expert manuals.
+                        </p>
+                        <div style="font-size: 0.8rem; background: rgba(0,0,0,0.03); padding: 0.5rem 0.75rem; border-radius: 8px; font-weight: 700; color: var(--text-primary); display: inline-block;">
+                            Tech: ChromaDB Vector Store
+                        </div>
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div style="background: rgba(46, 125, 50, 0.02); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; position: relative;">
+                        <span style="position: absolute; right: 1.25rem; top: 1.25rem; background: var(--primary-color); color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800;">6</span>
+                        <h4 style="font-weight: 700; font-size: 1.1rem; color: var(--primary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; margin-top: 0;">
+                            <i class="fa-solid fa-stethoscope"></i> AI Advisory & Audit
+                        </h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                            Processes RAG knowledge sheets alongside weather variables and history context, compiling safe, localized diagnostics.
+                        </p>
+                        <div style="font-size: 0.8rem; background: rgba(0,0,0,0.03); padding: 0.5rem 0.75rem; border-radius: 8px; font-weight: 700; color: var(--text-primary); display: inline-block;">
+                            Tech: Gemini 1.5 / Fallbacks
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer 3 -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <!-- Step 7 -->
+                    <div style="background: rgba(46, 125, 50, 0.02); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; position: relative;">
+                        <span style="position: absolute; right: 1.25rem; top: 1.25rem; background: var(--primary-color); color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800;">7</span>
+                        <h4 style="font-weight: 700; font-size: 1.1rem; color: var(--primary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; margin-top: 0;">
+                            <i class="fa-solid fa-volume-high"></i> TTS Synthesis
+                        </h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                            Translates text advice to high-clarity voice output in localized accent tones for low-literacy agricultural users.
+                        </p>
+                        <div style="font-size: 0.8rem; background: rgba(0,0,0,0.03); padding: 0.5rem 0.75rem; border-radius: 8px; font-weight: 700; color: var(--text-primary); display: inline-block;">
+                            Tech: Google TTS / Web Speech API
+                        </div>
+                    </div>
+
+                    <!-- Step 8 -->
+                    <div style="background: rgba(46, 125, 50, 0.02); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; position: relative;">
+                        <span style="position: absolute; right: 1.25rem; top: 1.25rem; background: var(--primary-color); color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800;">8</span>
+                        <h4 style="font-weight: 700; font-size: 1.1rem; color: var(--primary-color); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; margin-top: 0;">
+                            <i class="fa-solid fa-chart-pie"></i> Visual Dashboard
+                        </h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                            Interactive dashboard reporting diagnostic results, weather stats, historical records, and detailed judge latencies.
+                        </p>
+                        <div style="font-size: 0.8rem; background: rgba(0,0,0,0.03); padding: 0.5rem 0.75rem; border-radius: 8px; font-weight: 700; color: var(--text-primary); display: inline-block;">
+                            Tech: HTML5, CSS Variables, JS
+                        </div>
+                    </div>
+
+                    <!-- Step 9 (Empty for styling balance) -->
+                    <div style="background: linear-gradient(135deg, rgba(46, 125, 50, 0.05), rgba(249, 168, 37, 0.05)); border: 1px dashed var(--border-color); border-radius: 16px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                        <i class="fa-solid fa-award" style="font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 0.5rem;"></i>
+                        <h4 style="font-weight: 800; color: var(--primary-color); margin-bottom: 0.25rem; margin-top: 0;">Competition Ready</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Designed for offline resiliency & real-time judging audits.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+
+        <p>© 2026 KrishiKantho AI. All Rights Reserved. Built for Agricultural Competitions in Bangladesh.</p>
+    </footer>
+
+    <!-- App Logic Script -->
+    <script src="/static/js/app.js?v=3"></script>
+</body>
+</html>
