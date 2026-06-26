@@ -98,24 +98,28 @@ def ingest_single_file(file_path: Path, crop: str, rag_service: RAGService):
     ext = file_path.suffix.lower()
     logger.info(f"Ingesting file: {file_path.name} (Crop: {crop})")
     
+    documents = []
     if ext == ".pdf":
-        success = rag_service.ingest_pdf(str(file_path), crop_tag=crop)
-        if success:
-            logger.info(f"Successfully ingested PDF: {file_path.name}")
-        else:
-            logger.error(f"Failed to ingest PDF: {file_path.name}")
-            
+        documents = rag_service.doc_store._load_pdf(file_path)
     elif ext == ".txt":
-        try:
-            with open(file_path, "r", encoding="utf-8") as f:
-                text = f.read()
-            rag_service.ingest_text(text, file_path.name, crop_tag=crop)
-            logger.info(f"Successfully ingested TXT: {file_path.name}")
-        except Exception as e:
-            logger.error(f"Failed to read TXT: {file_path.name}. Error: {e}")
-            
+        documents = rag_service.doc_store._load_txt(file_path)
     else:
         logger.warning(f"Unsupported file type: {file_path.name}")
+        return
+        
+    # Override crop tag if specified
+    if crop:
+        for doc in documents:
+            doc.metadata["crop"] = crop
+            
+    if documents:
+        texts = [doc.text for doc in documents]
+        metadatas = [doc.metadata for doc in documents]
+        ids = [doc.id for doc in documents]
+        rag_service.vector_store.add_documents(texts, metadatas, ids)
+        logger.info(f"Successfully ingested: {file_path.name}")
+    else:
+        logger.error(f"Failed to ingest: {file_path.name}")
 
 if __name__ == "__main__":
     main()
