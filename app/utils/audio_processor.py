@@ -1,8 +1,7 @@
 import os
 import logging
+import shutil
 from pathlib import Path
-from pydub import AudioSegment, effects
-from pydub.silence import detect_leading_silence
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +22,19 @@ def process_audio(input_path: str, output_path: str) -> bool:
             
         logger.info(f"Processing audio: {input_path} (format: {suffix})")
         
+        try:
+            from pydub import AudioSegment, effects
+        except ImportError:
+            logger.warning("pydub not installed. Skipping processing and copying original file.")
+            # Ensure parent folder exists if possible
+            try:
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy(str(input_path), str(output_path))
+                return True
+            except Exception as copy_err:
+                logger.error(f"Copy fallback failed: {copy_err}")
+                return False
+                
         # Load segment
         sound = AudioSegment.from_file(input_path, format=suffix)
         

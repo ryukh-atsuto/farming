@@ -28,7 +28,10 @@ def upload_audio():
             # Add unique prefix to avoid collisions
             import time
             unique_filename = f"{int(time.time())}_{filename}"
-            save_path = Config.UPLOAD_DIR / unique_filename
+            if Config.VERCEL_DEPLOYMENT:
+                save_path = Path("/tmp") / unique_filename
+            else:
+                save_path = Config.UPLOAD_DIR / unique_filename
             
             file.save(str(save_path))
             

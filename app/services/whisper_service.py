@@ -1,7 +1,13 @@
 import os
 import logging
 from pathlib import Path
-import google.generativeai as genai
+try:
+    import google.generativeai as genai
+    GEMINI_AVAILABLE = True
+except ImportError:
+    GEMINI_AVAILABLE = False
+    genai = None
+
 from app.config.settings import Config
 from app.utils.audio_processor import process_audio
 
@@ -104,7 +110,7 @@ class WhisperService:
                 logger.error(f"Local Whisper transcription failed: {e}. Falling back to Gemini API.")
 
         # Fallback: Transcribe using Gemini API
-        if Config.GEMINI_API_KEY:
+        if Config.GEMINI_API_KEY and GEMINI_AVAILABLE:
             try:
                 logger.info("Transcribing using Gemini API audio upload...")
                 genai.configure(api_key=Config.GEMINI_API_KEY)

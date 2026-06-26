@@ -1,7 +1,13 @@
 # app/services/stt_service.py
 import logging
 from pathlib import Path
-import google.generativeai as genai
+try:
+    import google.generativeai as genai
+    GEMINI_AVAILABLE = True
+except ImportError:
+    GEMINI_AVAILABLE = False
+    genai = None
+
 from app.config.settings import Config
 
 logger = logging.getLogger(__name__)
@@ -85,7 +91,7 @@ class STTService:
                 logger.error(f"Local Whisper transcription failed: {e}. Trying Gemini API.")
 
         # 2. Try Gemini API File upload
-        if Config.GEMINI_API_KEY and not Config.USE_MOCK_LLM:
+        if Config.GEMINI_API_KEY and not Config.USE_MOCK_LLM and GEMINI_AVAILABLE:
             try:
                 logger.info("Uploading audio to Gemini File API...")
                 genai.configure(api_key=Config.GEMINI_API_KEY)

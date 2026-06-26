@@ -1,6 +1,12 @@
 import json
 import logging
-import google.generativeai as genai
+try:
+    import google.generativeai as genai
+    GEMINI_AVAILABLE = True
+except ImportError:
+    GEMINI_AVAILABLE = False
+    genai = None
+
 from app.config.settings import Config
 
 logger = logging.getLogger(__name__)
@@ -8,12 +14,12 @@ logger = logging.getLogger(__name__)
 class GeminiService:
     def __init__(self):
         self.api_key = Config.GEMINI_API_KEY
-        if self.api_key:
+        if self.api_key and GEMINI_AVAILABLE:
             genai.configure(api_key=self.api_key)
             self.model_flash = genai.GenerativeModel("gemini-2.0-flash")
             logger.info("Gemini Service initialized successfully.")
         else:
-            logger.warning("GEMINI_API_KEY not found. Gemini Service will operate in offline/mock mode.")
+            logger.warning("GEMINI_API_KEY not found or google-generativeai module unavailable. Gemini Service will operate in offline/mock mode.")
             self.model_flash = None
 
     def correct_asr(self, raw_transcript: str) -> dict:

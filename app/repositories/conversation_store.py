@@ -10,9 +10,14 @@ class ConversationStoreRepository:
     def __init__(self):
         Config.init_app()
         self.filepath = Path(Config.CONVERSATION_HISTORY_FILE)
-        self._ensure_file_exists()
+        self._in_memory_convs = []
+        self._in_memory_detailed = {}
+        if not Config.VERCEL_DEPLOYMENT:
+            self._ensure_file_exists()
 
     def _ensure_file_exists(self):
+        if Config.VERCEL_DEPLOYMENT:
+            return
         if not self.filepath.exists():
             try:
                 with open(self.filepath, "w", encoding="utf-8") as f:
@@ -22,6 +27,9 @@ class ConversationStoreRepository:
                 logger.error(f"Error creating conversation file: {e}")
 
     def _read_all(self):
+        if Config.VERCEL_DEPLOYMENT:
+            return self._in_memory_convs
+            
         self._ensure_file_exists()
         try:
             with open(self.filepath, "r", encoding="utf-8") as f:
@@ -34,6 +42,10 @@ class ConversationStoreRepository:
             return []
 
     def _write_all(self, data_list):
+        if Config.VERCEL_DEPLOYMENT:
+            self._in_memory_convs = data_list
+            return
+            
         try:
             with open(self.filepath, "w", encoding="utf-8") as f:
                 json.dump(data_list, f, ensure_ascii=False, indent=4)
@@ -98,6 +110,12 @@ class ConversationStoreRepository:
             logger.info(f"Deleted conversation {conversation_id}")
             success = True
             
+        if Config.VERCEL_DEPLOYMENT:
+            if conversation_id in self._in_memory_detailed:
+                del self._in_memory_detailed[conversation_id]
+                success = True
+            return success
+            
         detailed_file = Path(Config.DATA_DIR) / "history_detailed.json"
         if detailed_file.exists():
             try:
@@ -121,6 +139,11 @@ class ConversationStoreRepository:
         if "timestamp" not in payload:
             payload["timestamp"] = datetime.datetime.utcnow().isoformat()
         
+        if Config.VERCEL_DEPLOYMENT:
+            self._in_memory_detailed[conversation_id] = payload
+            logger.info(f"Saved history detailed payload (in-memory) for {conversation_id}")
+            return
+            
         detailed_file = Path(Config.DATA_DIR) / "history_detailed.json"
         data = {}
         if detailed_file.exists():
@@ -144,6 +167,9 @@ class ConversationStoreRepository:
         """
         Retrieve detailed query session payload by ID.
         """
+        if Config.VERCEL_DEPLOYMENT:
+            return self._in_memory_detailed.get(conversation_id)
+            
         detailed_file = Path(Config.DATA_DIR) / "history_detailed.json"
         if not detailed_file.exists():
             return None
@@ -159,6 +185,9 @@ class ConversationStoreRepository:
         """
         Retrieve all detailed query session payloads as a list.
         """
+        if Config.VERCEL_DEPLOYMENT:
+            return list(self._in_memory_detailed.values())
+            
         detailed_file = Path(Config.DATA_DIR) / "history_detailed.json"
         if not detailed_file.exists():
             return []
@@ -175,6 +204,12 @@ class ConversationStoreRepository:
         Clears all conversation records and detailed history files.
         """
         self._write_all([])
+        if Config.VERCEL_DEPLOYMENT:
+            self._in_memory_convs = []
+            self._in_memory_detailed = {}
+            logger.info("Cleared in-memory conversation records.")
+            return
+            
         detailed_file = Path(Config.DATA_DIR) / "history_detailed.json"
         if detailed_file.exists():
             try:
@@ -182,4 +217,3 @@ class ConversationStoreRepository:
                 logger.info("Deleted history_detailed.json")
             except Exception as e:
                 logger.error(f"Error deleting history_detailed.json: {e}")
-

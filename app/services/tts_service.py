@@ -32,9 +32,24 @@ class TTSService:
         self.last_synthesis_method = "unknown"
         if not text or not text.strip():
             return ""
-            
         # Clean text
         text = text.replace("*", "").replace("#", "").strip()
+        
+        if Config.VERCEL_DEPLOYMENT:
+            # Vercel mode: Return the bundled static response directly without writing to disk
+            text_lower = text.lower()
+            self.last_synthesis_method = "mock_fallback"
+            if "বাদামী" in text_lower or "brown spot" in text_lower:
+                return "/static/audio/demo_responses/rice_brown_spot_response.mp3"
+            elif "ব্লাস্ট" in text_lower or "blast" in text_lower:
+                return "/static/audio/demo_responses/rice_blast_response.mp3"
+            elif "কোঁকড়ানো" in text_lower or "কুঁকড়ে" in text_lower or "leaf curl" in text_lower:
+                return "/static/audio/demo_responses/tomato_leaf_curl_response.mp3"
+            elif "কাণ্ড পচা" in text_lower or "গোড়া কালো" in text_lower or "stem rot" in text_lower:
+                return "/static/audio/demo_responses/jute_stem_rot_response.mp3"
+            
+            # Default fallback if text doesn't match a demo scenario
+            return "/static/audio/demo_responses/rice_brown_spot_response.mp3"
         
         # Generate unique filename based on hash of text
         text_hash = hash(text) & 0xffffffff

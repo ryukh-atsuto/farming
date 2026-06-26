@@ -15,10 +15,18 @@ class Config:
     HF_TOKEN = os.environ.get("HF_TOKEN", "")
     OPENWEATHER_API_KEY = os.environ.get("OPENWEATHER_API_KEY", "")
     
+    # Vercel Deployment configuration
+    VERCEL_DEPLOYMENT = (os.environ.get("VERCEL_DEPLOYMENT", "false").lower() == "true" or os.environ.get("VERCEL") is not None)
+    
     # System toggles
-    USE_OPEN_METEO = os.environ.get("USE_OPEN_METEO", "true").lower() == "true"
-    USE_MOCK_LLM = os.environ.get("USE_MOCK_LLM", "true").lower() == "true"
-    USE_MOCK_TTS = os.environ.get("USE_MOCK_TTS", "false").lower() == "true"
+    if VERCEL_DEPLOYMENT:
+        USE_OPEN_METEO = True
+        USE_MOCK_LLM = True
+        USE_MOCK_TTS = True
+    else:
+        USE_OPEN_METEO = os.environ.get("USE_OPEN_METEO", "true").lower() == "true"
+        USE_MOCK_LLM = os.environ.get("USE_MOCK_LLM", "true").lower() == "true"
+        USE_MOCK_TTS = os.environ.get("USE_MOCK_TTS", "false").lower() == "true"
     
     # Paths (Internal to Workspace)
     DATA_DIR = BASE_DIR / "data"
@@ -50,10 +58,16 @@ class Config:
     
     @classmethod
     def init_app(cls):
-        # Ensure directories exist
-        cls.DATA_DIR.mkdir(parents=True, exist_ok=True)
-        cls.KNOWLEDGE_BASE_DIR.mkdir(parents=True, exist_ok=True)
-        cls.CHROMA_DB_DIR.mkdir(parents=True, exist_ok=True)
-        cls.UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-        cls.GENERATED_AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+        # Ensure directories exist (Vercel has read-only filesystem, so wrap in try-except)
+        try:
+            cls.DATA_DIR.mkdir(parents=True, exist_ok=True)
+            cls.KNOWLEDGE_BASE_DIR.mkdir(parents=True, exist_ok=True)
+            if not cls.VERCEL_DEPLOYMENT:
+                cls.CHROMA_DB_DIR.mkdir(parents=True, exist_ok=True)
+                cls.UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+                cls.GENERATED_AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+        except Exception as e:
+            # Silently log/warn on read-only environments
+            import logging
+            logging.getLogger(__name__).warning(f"Failed to create directories on startup: {e}")
 
