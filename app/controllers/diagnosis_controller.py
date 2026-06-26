@@ -195,7 +195,47 @@ def diagnose_crop():
         # Step 9: Speech synthesis (TTS)
         t_tts_start = time.perf_counter()
         logger.info("Pipeline: Synthesizing Bangla advice to voice...")
-        recommendation_audio_url = tts_service.synthesize(recommendation_text, voice_gender="female")
+        recommendation_audio_url = ""
+        tts_failed = False
+        
+        from app.config.settings import Config
+        if not Config.USE_MOCK_TTS:
+            try:
+                recommendation_audio_url = tts_service.synthesize(recommendation_text, voice_gender="female")
+                if not recommendation_audio_url or getattr(tts_service, "last_synthesis_method", "") in ["failed", "mock_fallback", "gtts"]:
+                    tts_failed = True
+            except Exception as e:
+                logger.error(f"Live TTS synthesis failed: {e}")
+                tts_failed = True
+        else:
+            tts_failed = True
+            
+        if tts_failed:
+            # Check if query matches a demo scenario to use pre-recorded fallback audio
+            scenario_match = None
+            from app.repositories.demo_scenario_store import DemoScenarioStore
+            try:
+                scenarios = DemoScenarioStore().get_all_scenarios()
+                query_clean = corrected_bangla.strip().replace(" ", "").replace("\u200c", "")
+                for sc in scenarios:
+                    raw_clean = sc.get("raw_transcript", "").strip().replace(" ", "").replace("\u200c", "")
+                    corr_clean = sc.get("corrected_bangla", "").strip().replace(" ", "").replace("\u200c", "")
+                    compl_clean = sc.get("farmer_complaint", "").strip().replace(" ", "").replace("\u200c", "")
+                    if query_clean in [raw_clean, corr_clean, compl_clean] or raw_clean in query_clean or corr_clean in query_clean:
+                        scenario_match = sc
+                        break
+            except Exception as sc_err:
+                logger.error(f"Error checking scenario match: {sc_err}")
+                
+            if scenario_match:
+                logger.info(f"Using pre-recorded fallback audio for matched scenario: {scenario_match['id']}")
+                recommendation_audio_url = scenario_match.get("response_audio_url", "")
+            else:
+                logger.info("No matching scenario found for fallback, using default/fallback synthesis.")
+                if not recommendation_audio_url:
+                    # Fallback to whatever tts_service produced (e.g. silent WAV or gTTS if it worked but flagged)
+                    recommendation_audio_url = tts_service.synthesize(recommendation_text, voice_gender="female")
+                    
         tts_latency = int((time.perf_counter() - t_tts_start) * 1000)
 
         import datetime
@@ -207,7 +247,6 @@ def diagnose_crop():
         input_token_count = (len(corrected_bangla) + rag_context_len + len(history_context)) // 4
         output_token_count = len(recommendation_text) // 4
         
-        from app.config.settings import Config
         is_corr_fallback = Config.USE_MOCK_LLM or asr_result.get("_is_mock_fallback", False)
         is_intent_fallback = Config.USE_MOCK_LLM or intent_result.get("_is_mock_fallback", False)
         is_advisor_fallback = Config.USE_MOCK_LLM or advisor_result.get("_is_mock_fallback", False)
@@ -219,7 +258,7 @@ def diagnose_crop():
             "intent": "mock_fallback" if is_intent_fallback else "executed",
             "rag": "executed",
             "advisor": "mock_fallback" if is_advisor_fallback else "executed",
-            "tts": getattr(tts_service, "last_synthesis_method", "mock_fallback")
+            "tts": "mock_fallback" if (Config.USE_MOCK_TTS or tts_failed) else getattr(tts_service, "last_synthesis_method", "executed")
         }
 
         metrics = {

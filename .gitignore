@@ -10,3 +10,4 @@ data/history_detailed.json
 data/conversation_history.json
 data/conversations.json
 .env
+test_output.wav

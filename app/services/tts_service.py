@@ -86,31 +86,93 @@ class TTSService:
 
     def _run_mock_tts(self, text: str, output_path: str) -> bool:
         """
-        Generates a dummy silent WAV file using the standard wave module.
+        Generates a robot-voiced synthesizer WAV file using the standard wave module
+        to ensure audio output functions correctly offline. If keywords match one of
+        the demo scenarios, it copies the natural pre-recorded voice audio instead.
         """
         try:
-            logger.info(f"Generating mock silent TTS audio: '{text[:30]}...'")
-            import wave
+            import shutil
+            from pathlib import Path
+            
+            # Map text keywords to pre-recorded response files
+            src_file = None
+            text_lower = text.lower()
+            if "বাদামী" in text_lower or "brown spot" in text_lower:
+                src_file = "rice_brown_spot_response.mp3"
+            elif "ব্লাস্ট" in text_lower or "blast" in text_lower:
+                src_file = "rice_blast_response.mp3"
+            elif "কোঁকড়ানো" in text_lower or "কুঁকড়ে" in text_lower or "leaf curl" in text_lower:
+                src_file = "tomato_leaf_curl_response.mp3"
+            elif "কাণ্ড পচা" in text_lower or "গোড়া কালো" in text_lower or "stem rot" in text_lower:
+                src_file = "jute_stem_rot_response.mp3"
+
+            if src_file:
+                src_path = Path(Config.BASE_DIR) / "app" / "views" / "static" / "audio" / "demo_responses" / src_file
+                if src_path.exists():
+                    dir_name = os.path.dirname(output_path)
+                    if dir_name:
+                        os.makedirs(dir_name, exist_ok=True)
+                    shutil.copy(str(src_path), output_path)
+                    logger.info(f"Mock TTS: Copied pre-recorded natural response {src_file} to {output_path}")
+                    return True
+
+            logger.info(f"Generating fallback mock synthesiser audio for: '{text[:30]}...'")
+            import math
             import struct
+            import wave
             
-            # Ensure parent directories exist
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            num_syllables = max(3, len(text) // 3)
+            num_syllables = min(30, num_syllables)
             
-            # Create a 1-second silent WAV file at 8000Hz mono
+            sample_rate = 8000
+            dir_name = os.path.dirname(output_path)
+            if dir_name:
+                os.makedirs(dir_name, exist_ok=True)
+            
             with wave.open(output_path, "wb") as wav_file:
                 # nchannels, sampwidth, framerate, nframes, comptype, compname
-                wav_file.setparams((1, 2, 8000, 8000, "NONE", "not compressed"))
-                # Write 8000 frames of silence (0)
-                silence_frames = struct.pack("<8000h", *[0]*8000)
-                wav_file.writeframes(silence_frames)
+                wav_file.setparams((1, 2, sample_rate, 0, "NONE", "not compressed"))
+                
+                frames = []
+                for s in range(num_syllables):
+                    duration = 0.15
+                    num_samples = int(sample_rate * duration)
+                    # Modulate pitch for retro robot inflections
+                    base_freq = 150.0 + 30.0 * math.sin(s * 0.8)
+                    
+                    for i in range(num_samples):
+                        t = i / sample_rate
+                        envelope = 1.0
+                        fade_samples = int(sample_rate * 0.02)
+                        if i < fade_samples:
+                            envelope = i / fade_samples
+                        elif i > num_samples - fade_samples:
+                            envelope = (num_samples - i) / fade_samples
+                        
+                        # Fundamental with vocal-like harmonics
+                        val = math.sin(2 * math.pi * base_freq * t)
+                        val += 0.5 * math.sin(2 * math.pi * (2 * base_freq) * t)
+                        val += 0.25 * math.sin(2 * math.pi * (3 * base_freq) * t)
+                        val = math.tanh(val) # soft clipping/buzz
+                        
+                        sample_val = int(32767 * 0.25 * envelope * val)
+                        frames.append(struct.pack("<h", sample_val))
+                        
+                    # Tiny gap between syllables
+                    gap_samples = int(sample_rate * 0.03)
+                    for _ in range(gap_samples):
+                        frames.append(struct.pack("<h", 0))
+                        
+                wav_file.writeframes(b"".join(frames))
                 
             if os.path.exists(output_path) and os.path.getsize(output_path) > 0:
-                logger.info("Mock TTS generation completed successfully.")
+                logger.info("Mock synthesiser audio generation completed successfully.")
                 return True
             return False
         except Exception as e:
-            logger.error(f"Mock TTS generation failed: {e}")
+            logger.error(f"Mock synthesiser audio generation failed: {e}")
             return False
+
 
     def _run_piper(self, text: str, output_path: str) -> bool:
         """

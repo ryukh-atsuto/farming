@@ -134,10 +134,28 @@ class DemoService:
 
         # Step 8: TTS Audio Synthesis
         t_tts_start = time.perf_counter()
-        recommendation_audio_url = self.tts_service.synthesize(
-            advisor_result.get("bangla_recommendation", ""), 
-            voice_gender="female"
-        )
+        recommendation_audio_url = ""
+        tts_failed = False
+        
+        from app.config.settings import Config
+        if not Config.USE_MOCK_TTS:
+            try:
+                recommendation_audio_url = self.tts_service.synthesize(
+                    advisor_result.get("bangla_recommendation", ""), 
+                    voice_gender="female"
+                )
+                if not recommendation_audio_url or getattr(self.tts_service, "last_synthesis_method", "") in ["failed", "mock_fallback", "gtts"]:
+                    tts_failed = True
+            except Exception as e:
+                logger.error(f"Live TTS synthesis failed: {e}")
+                tts_failed = True
+        else:
+            tts_failed = True
+            
+        if tts_failed:
+            logger.info("Live TTS is disabled or failed; falling back to scenario-specific pre-recorded response audio.")
+            recommendation_audio_url = scenario.get("response_audio_url", "")
+            
         tts_latency = int((time.perf_counter() - t_tts_start) * 1000)
         
         total_latency = int((time.perf_counter() - t_start) * 1000) + stt_latency
@@ -147,7 +165,6 @@ class DemoService:
         input_token_count = (len(asr_result["corrected_bangla"]) + rag_context_len) // 4
         output_token_count = len(advisor_result.get("bangla_recommendation", "")) // 4
 
-        from app.config.settings import Config
         stage_status = {
             "stt": "executed",
             "correction": "mock_fallback" if Config.USE_MOCK_LLM else "executed",
@@ -155,7 +172,7 @@ class DemoService:
             "intent": "mock_fallback" if Config.USE_MOCK_LLM else "executed",
             "rag": "executed",
             "advisor": "mock_fallback" if Config.USE_MOCK_LLM else "executed",
-            "tts": "mock_fallback" if Config.USE_MOCK_TTS else "executed"
+            "tts": "mock_fallback" if (Config.USE_MOCK_TTS or tts_failed) else "executed"
         }
 
         metrics = {

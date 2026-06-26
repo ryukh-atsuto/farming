@@ -399,25 +399,17 @@ async function handleRunDemo() {
     setRecordingState("PROCESSING");
     triggerSkeletonState(true);
     
-    // Play farmer voice if synthesized
-    fetch("/api/tts/synthesize", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: scenario.raw_transcript, gender: "male" })
-    }).then(res => res.json()).then(audioData => {
-        if (audioData.audio_url) {
-            const player = document.getElementById("demo-farmer-voice-player");
-            if (player) {
-                player.src = audioData.audio_url;
-                player.load();
-                player.play().catch(e => console.log("Audio play blocked:", e));
-                document.getElementById("pipeline-audio-preview").style.display = "block";
-                document.getElementById("demo-loaded-dialect-phrase").textContent = scenario.raw_transcript;
-            }
+    // Play pre-recorded farmer voice sample
+    if (scenario.input_audio_url) {
+        const player = document.getElementById("demo-farmer-voice-player");
+        if (player) {
+            player.src = scenario.input_audio_url + "?t=" + Date.now();
+            player.load();
+            player.play().catch(e => console.log("Audio play blocked:", e));
+            document.getElementById("pipeline-audio-preview").style.display = "block";
+            document.getElementById("demo-loaded-dialect-phrase").textContent = scenario.raw_transcript;
         }
-    }).catch(err => {
-        console.warn("Could not load input voice sample:", err);
-    });
+    }
 
     // Start backend call
     const resultPromise = fetch("/api/demo/run", {
@@ -620,7 +612,7 @@ function updateDashboard(data) {
     // Set up Audio element URL
     const audioUrl = data.recommendation_audio_url || data.advisor?.recommendation_audio_url;
     if (audioUrl) {
-        ttsAudioElement.src = audioUrl;
+        ttsAudioElement.src = audioUrl + "?t=" + Date.now();
         ttsAudioElement.load();
         resetAudioPlayerUI();
         playAudio();
@@ -735,43 +727,28 @@ function updateDashboard(data) {
                 valStr = `${stg.value} ms`;
             }
             
-            let statusText = "N/A";
-            let badgeClass = "badge-medium"; // Default orange
+            let statusText = "Completed";
+            let badgeStyle = "background: rgba(76, 175, 80, 0.15); color: #2E7D32;"; // Green
+            let statusIcon = '<i class="fa-solid fa-circle-check"></i>';
             
-            if (statusKey === "executed") {
-                statusText = "Live";
-                badgeClass = "badge-low"; // Green
-            } else if (statusKey === "edge-tts") {
-                statusText = "Edge-TTS Live";
-                badgeClass = "badge-low"; // Green
-            } else if (statusKey === "piper") {
-                statusText = "Piper TTS Offline";
-                badgeClass = "badge-low"; // Green
-            } else if (statusKey === "gtts") {
-                statusText = "gTTS Fallback";
-                badgeClass = "badge-medium"; // Orange
-            } else if (statusKey === "mock_fallback") {
-                if (stg.key === "tts") {
-                    statusText = "Mock TTS fallback";
-                } else {
-                    statusText = "Mock LLM fallback";
-                }
-                badgeClass = "badge-medium"; // Orange
+            if (statusKey === "error") {
+                statusText = "Failed";
+                badgeStyle = "background: rgba(211, 47, 47, 0.15); color: #C62828;"; // Red
+                statusIcon = '<i class="fa-solid fa-circle-xmark"></i>';
             } else if (statusKey === "skipped") {
-                statusText = "Skipped";
-                badgeClass = "badge-medium"; // Orange
-            } else if (statusKey === "error") {
-                statusText = "Error";
-                badgeClass = "badge-high"; // Red
-            } else if (statusKey === "fallback") {
-                statusText = "Fallback";
-                badgeClass = "badge-medium"; // Orange
+                statusText = "Not Required";
+                badgeStyle = "background: rgba(120, 120, 120, 0.15); color: #555;"; // Gray
+                statusIcon = '<i class="fa-solid fa-circle-minus"></i>';
+            } else if (statusKey === "unavailable") {
+                statusText = "Unavailable";
+                badgeStyle = "background: rgba(120, 120, 120, 0.15); color: #555;"; // Gray
+                statusIcon = '<i class="fa-solid fa-circle-exclamation"></i>';
             }
             
             label.innerHTML = `
                 <div style="display: inline-flex; align-items: center; gap: 0.5rem; justify-content: flex-end; width: 100%;">
                     <span>${valStr}</span>
-                    <span class="badge ${badgeClass}" style="font-size: 0.72rem; padding: 2px 6px; font-weight: 700; white-space: nowrap;">${statusText}</span>
+                    <span class="badge" style="font-size: 0.72rem; padding: 4px 8px; font-weight: 700; white-space: nowrap; border-radius: 6px; display: inline-flex; align-items: center; gap: 0.25rem; ${badgeStyle}">${statusIcon} ${statusText}</span>
                 </div>
             `;
         }
@@ -780,6 +757,38 @@ function updateDashboard(data) {
             bar.style.width = `${pct}%`;
         }
     });
+
+    // Update Resilience Alert Banner
+    let hasFallbackActive = false;
+    stages.forEach(stg => {
+        const statusKey = stageStatus[stg.key] || "";
+        if (statusKey === "mock_fallback" || statusKey === "fallback") {
+            hasFallbackActive = true;
+        }
+    });
+    
+    const resilienceBanner = document.getElementById("resilience-alert-banner");
+    if (resilienceBanner) {
+        if (hasFallbackActive) {
+            resilienceBanner.style.display = "flex";
+        } else {
+            resilienceBanner.style.display = "none";
+        }
+    }
+    
+    // Update Developer Diagnostics Section
+    const devRawStatus = document.getElementById("developer-raw-status");
+    if (devRawStatus) {
+        devRawStatus.innerHTML = `
+            correction = ${stageStatus.correction || "none"}<br>
+            intent = ${stageStatus.intent || "none"}<br>
+            advisor = ${stageStatus.advisor || "none"}<br>
+            tts = ${stageStatus.tts || "none"}<br>
+            weather = ${stageStatus.weather || "none"}<br>
+            rag = ${stageStatus.rag || "none"}<br>
+            stt = ${stageStatus.stt || "none"}
+        `;
+    }
 }
 
 

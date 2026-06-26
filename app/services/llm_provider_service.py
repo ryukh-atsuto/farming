@@ -69,7 +69,7 @@ class LLMProviderService:
 
         # 3. Offline Rule-based Mock / Demo Fallback
         logger.info("LLM Provider: Utilizing offline rule-based mock.")
-        result = self._mock_reasoning_fallback(user_prompt)
+        result = self._mock_reasoning_fallback(system_instruction + "\n" + user_prompt)
         result["_is_mock_fallback"] = True
         return result
 
@@ -93,19 +93,30 @@ class LLMProviderService:
 
     def _mock_reasoning_fallback(self, user_prompt: str) -> Dict[str, Any]:
         """Provides a simple rule-based mock analyzer matching terms in user_prompt."""
-        prompt_lower = user_prompt.lower()
+        # Extract the specific farmer query to match keywords on, to avoid matching templates or RAG content
+        query = user_prompt
+        for line in user_prompt.split("\n"):
+            line_lower = line.lower()
+            if "farmer query:" in line_lower:
+                query = line.split(":", 1)[1].strip()
+                break
+            elif "farmer's complaint:" in line_lower:
+                query = line.split(":", 1)[1].strip()
+                break
+        
+        prompt_lower = query.lower()
         
         # Determine scenario
         if "বাদামী" in prompt_lower or "brown" in prompt_lower or "leaf spot" in prompt_lower:
             from app.repositories.demo_scenario_store import DEFAULT_SCENARIOS
-            scenario = DEFAULT_SCENARIOS["rice_brown_leaf_spot"]
-        elif "গিট" in prompt_lower or "blast" in prompt_lower or "ব্লাস্ট" in prompt_lower:
+            scenario = DEFAULT_SCENARIOS["rice_brown_spot"]
+        elif "গিট" in prompt_lower or "গিঁট" in prompt_lower or "blast" in prompt_lower or "ব্লাস্ট" in prompt_lower or "চোখ" in prompt_lower:
             from app.repositories.demo_scenario_store import DEFAULT_SCENARIOS
             scenario = DEFAULT_SCENARIOS["rice_blast"]
-        elif "কোকড়ানো" in prompt_lower or "curl" in prompt_lower or "কুচকে" in prompt_lower:
+        elif "কোকড়ানো" in prompt_lower or "curl" in prompt_lower or "কুচকে" in prompt_lower or "কুঁচকে" in prompt_lower or "কুঁকড়ে" in prompt_lower or "কুঁকড়ে" in prompt_lower or "টমেটো" in prompt_lower:
             from app.repositories.demo_scenario_store import DEFAULT_SCENARIOS
             scenario = DEFAULT_SCENARIOS["tomato_leaf_curl"]
-        elif "কাণ্ড" in prompt_lower or "পচা" in prompt_lower or "rot" in prompt_lower:
+        elif "কাণ্ড" in prompt_lower or "পচা" in prompt_lower or "পচে" in prompt_lower or "rot" in prompt_lower or "পাট" in prompt_lower or "ঢলে" in prompt_lower:
             from app.repositories.demo_scenario_store import DEFAULT_SCENARIOS
             scenario = DEFAULT_SCENARIOS["jute_stem_rot"]
         else:
