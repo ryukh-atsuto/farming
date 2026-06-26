@@ -2,12 +2,13 @@ Flask>=3.0.0
 Flask-Limiter>=3.5.0
 google-generativeai>=0.8.0
 pydub>=0.25.1
+audioop-lts
 numpy>=1.26.0
 requests>=2.31.0
 python-dotenv>=1.0.1
 edge-tts>=6.1.9
 pypdf>=4.0.0
-soundfile>=0.12.1
 
 # Note: For full local offline ASR/RAG support, run:
 # pip install faster-whisper>=1.0.0 chromadb>=0.4.24
+
