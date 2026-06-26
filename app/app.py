@@ -14,13 +14,18 @@ from app.controllers.history_controller import history_bp
 from app.controllers.export_controller import export_bp
 
 # Configure detailed logging
+handlers = [logging.StreamHandler()]
+is_vercel = os.environ.get("VERCEL") is not None or os.environ.get("VERCEL_DEPLOYMENT", "false").lower() == "true"
+if not is_vercel:
+    try:
+        handlers.append(logging.FileHandler("app.log", encoding="utf-8"))
+    except Exception:
+        pass
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler("app.log", encoding="utf-8")
-    ]
+    handlers=handlers
 )
 logger = logging.getLogger(__name__)
 
